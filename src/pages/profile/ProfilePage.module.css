@@ -1,0 +1,10 @@
+.dashboard {
+    display: flex;
+    min-height: 50rem;
+    flex: 1;
+}
+
+.dashboard__content {
+    background-color: var(--color-grey-light-2);
+    flex: 1;
+}

@@ -1,0 +1,116 @@
+.section-stories {
+    margin-top: 20rem;
+    position: relative;
+    padding: 15rem 0;
+    height: 120rem;
+}
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    opacity: .15;
+    overflow: hidden;
+}
+
+.bg-video__content {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.heading-secondary {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: inline-block;
+    background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+    --webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: .2rem;
+    transition: all .2s;
+    z-index: 5;
+}
+
+.u-center-text { text-align: center !important; }
+
+.u-margin-bottom-big { 
+    margin-bottom: 8rem !important;
+}
+
+.heading-secondary:hover {
+    transform: skewY(2deg) skewX(15deg) scale(1.1);
+    text-shadow: .5rem 1rem 2rem rgba(var(--color-black), .2);
+}
+
+.story__list {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem #0000001a;
+    background-color: rgba(var(--color-white), .6);
+    border-radius: 3px;
+    padding: 6rem;
+    padding-left: 9rem;
+    transform: skewX(-12deg);
+}
+
+.story__shape {
+    width: 15rem;
+    height: 15rem;
+    float: left;
+    transform: translateX(-3rem) skewX(12deg);
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+
+    --webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+    --webkit-shape-outside: circle(50% at 50% 50%);
+    shape-outside: circle(50% at 50% 50%);
+    border-radius: none;
+}
+
+.story__img {
+    height: 100%;
+    transform: translateX(-4rem) scale(1.4);
+    backface-visibility: hidden;
+    transition: all .5s;
+}
+
+.story__text {
+    transform: skewX(12deg);
+}
+
+.story__caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    color: var(--color-white);
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    text-align: center;
+    opacity: 0;
+    transition: all .5s;
+    backface-visibility: hidden;
+}
+
+.story:hover .story__caption {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.story:hover .story__img {
+    transform: translateX(-4rem) scale(1);
+    filter: blur(3px) brightness(80%);
+}

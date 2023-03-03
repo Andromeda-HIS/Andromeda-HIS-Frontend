@@ -1,0 +1,139 @@
+.header {
+    position: fixed;
+    z-index: 100;
+    width: 175rem;
+    height: 8rem;
+    background-color: var(--color-white);
+    border-bottom: .3rem solid var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-grey-dark-2);
+}
+
+.logo {
+    height: 7.7rem;
+    margin-left: 5rem;
+}
+
+.primary-navigation__list {
+    display: flex;
+    list-style: none;
+    gap: 4rem;
+    align-items: center;
+}
+
+.primary-navigation__list a {
+    text-decoration: none;
+    color: var(--color-black);
+    fill: var(--color-grey-dark-2);
+    cursor: pointer;
+    padding: .8rem;
+    transition: all .2s;
+    /* font-weight: 700; */
+    font-size: 1.8rem;
+    height: 7.7rem;
+    display: flex;
+    align-items: center;
+}
+
+.primary-navigation__list a.profile {
+    display: flex;
+    background-color: orange;
+}
+
+.primary-navigation__list a:hover, 
+.primary-navigation__list a.active {
+    background-color: var(--color-grey-light-2);
+}
+
+.primary-navigation__list-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.primary-navigation__icon {
+    height: 3rem;
+    width: 3rem;
+    color: var(--color-grey-dark-2);
+    fill: inherit;
+}
+
+.navigation-end {
+    gap: 2rem;
+    margin-right: 5rem;
+}
+
+.navigation-end-item {
+}
+
+/* .primary-navigation__link {
+    text-decoration: none;
+    color: var(--color-black);
+    fill: var(--color-grey-dark-2);
+    cursor: pointer;
+    padding: .8rem;
+    transition: all .2s;
+    font-size: 1.8rem;
+    height: 7.7rem;
+    display: flex;
+    align-items: center;
+}
+
+.primary-navigation__link:hover {
+    background-color: var(--color-grey-light-2);
+} */
+
+.nav-btn__group {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-btn, .nav-btn:link, .nav-btn:active {
+    text-decoration: none;
+    border-radius: .8rem;
+    border: 2px solid var(--color-primary);
+    padding: 1rem 2.4rem;
+    transition: all .2s;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.login {
+    color: var(--color-primary);
+    background-color: transparent;
+    margin-right: 5rem;
+}
+
+.login:hover {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}
+
+.poweroff {
+    width: 5rem;
+    height: 5rem;
+    padding: 1.4rem;
+    cursor: pointer;
+    border: 2px solid var(--color-primary);
+    border-radius: 100rem;
+    color: var(--color-primary);
+    font-size: 3rem;
+    font-weight: 600;
+    transition: all .2s;
+    background-color: transparent;
+    position: relative;
+}
+
+.poweroff:hover {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}
+
+.poweroff__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,0 +1,44 @@
+.section-features {
+    padding: 20rem 0;
+    background-image: linear-gradient(
+        to right bottom,
+        #ff3366cc,
+        #ba265dcc),
+    url(./imgs/nat-4.jpg);
+    background-size: cover;
+    transform: skewY(-7deg);
+    margin-top: -2rem;
+}
+
+.section-features > * {
+    transform: skewY(7deg);
+}
+
+.features__list {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+}
+
+.feature-box {
+    background-color: #ffffffcc;
+    width: 32rem;
+    height: 40rem;
+    font-size: 1.5rem;
+    padding: 2.5rem;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem #00000026;
+    transition: transform .3s;
+    list-style: none;
+}
+
+.feature-box:hover {
+    transform: translateY(-1.5rem) scale(1.03);
+}
+
+.feature-box__icon {
+    font-size: 6rem;
+    margin-bottom: 2rem;
+    color: #eb2f64aa;
+}
