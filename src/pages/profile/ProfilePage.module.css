@@ -7,4 +7,7 @@
 .dashboard__content {
     background-color: var(--color-grey-light-2);
     flex: 1;
+    width: 100%;
+    padding: 2rem;
+    /* overflow-y: scroll; */
 }

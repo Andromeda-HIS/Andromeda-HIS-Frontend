@@ -1,20 +1,20 @@
 .looking-glass {
-    max-width: 175rem;
-    margin: 8rem auto;
+    /* max-width: 175rem; */
+    /* margin: 8rem auto; */
     background-color: var(--color-grey-light-2);
     box-shadow: var(--shadow-dark);
-    min-height: 50rem;
-    max-height: 96rem;
+    /* min-height: 50rem; */
+    /* max-height: 96rem; */
     overflow: hidden;
 }
 
 .crown {
     margin-top: 8rem;
-    height: 72rem;
+    /* height: 72rem; */
 }
 
 .scroller {
-    /* height: 72rem; */
+    height: 90rem;
     padding: 2rem 2.5rem;
     overflow-y: scroll;
 }

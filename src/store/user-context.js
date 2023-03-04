@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserContext = React.createContext({
     isLoggedIn: null,
     user: null,
+    currentTab: null,
     onLogin: () => {},
     onLogout: () => {},
+    onChangeTab: () => {}
 });
 
 export const UserContextProvider = (props) => {
@@ -14,10 +16,15 @@ export const UserContextProvider = (props) => {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (user) {
+            navigate("/profile/account");
+        }
+    }, [user]);
+
     const onLogin = (user) => {
         setIsLoggedIn(true);
         setUser(user);
-        navigate("/profile");
     };
 
     const onLogout = () => {

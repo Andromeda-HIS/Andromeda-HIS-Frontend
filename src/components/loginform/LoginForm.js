@@ -6,7 +6,6 @@ import classes from "./LoginForm.module.css";
 const isNotEmpty = (value) => value.trim() !== "";
 
 const LoginForm = () => {
-
     const userCtx = useContext(UserContext);
 
     const [designation, setDesignation] = useState("Receptionist");
@@ -50,40 +49,30 @@ const LoginForm = () => {
             ? errorClasses
             : normalClasses;
 
-    const loginHandler = (data) => {
-        if (!data.isRegistered) {
-            setUsernameExists(false);
-        } else {
-            if (data.isPasswordCorrect) {
-                setIsPasswordCorrect(true);
-                const user = {
-                    name: data.name,
-                    roll: data.roll,
-                    designation: data.designation,
-                    phone: data.phone,
-                    email: data.email,
-                    userName: data.userName,
-                    isAdmin: data.userName === "admin",
-                };
-                // userCtx.onLogin(user);
+    const loginHandler = (data, user) => {
+        if (!data.success) {
+            if (data.errorMessage === "Incorrect username") {
+                setUsernameExists(false);
             } else {
                 setIsPasswordCorrect(false);
             }
+        } else {
+            userCtx.onLogin(user);
         }
     };
 
-    const loginUser = async (body) => {
+    const loginUser = async (user) => {
         window.scroll(0, 0);
-        await fetch("http://localhost:5000/login", {
-            method: "POST",
+        const url = `http://localhost:8000/login/?userName=${user.userName}&password=${user.password}&designation=${user.designation}`;
+        await fetch(url, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
+            }
         })
+            .catch((error) => console.log(error))
             .then((response) => response.json())
-            .then((data) => loginHandler(data))
-            .catch((error) => console.log(error));
+            .then((data) => loginHandler(data, user));
     };
 
     const masterUsernameChangeHandler = (event) => {
@@ -103,12 +92,11 @@ const LoginForm = () => {
         const user = {
             userName: userName.trim(),
             password,
-            designation
+            designation,
         };
 
         console.log(user);
-        userCtx.onLogin(user);
-        // loginUser(user);
+        loginUser(user);
     };
 
     return (
