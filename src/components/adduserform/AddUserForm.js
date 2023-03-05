@@ -1,11 +1,11 @@
 import { useState } from "react";
 import useInput from "../../hooks/use-input";
 
-import classes from "./RegisterForm.module.css";
+import classes from "./AddUserForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
-const RegisterForm = () => {
+const AddUserForm = () => {
     const [designation, setDesignation] = useState("Receptionist");
 
     const designationChangeHandler = (designation) => {
@@ -16,6 +16,7 @@ const RegisterForm = () => {
         resetName();
         resetAddress();
         resetDepartment();
+        setUsernameExists(false);
     };
 
     const {
@@ -186,12 +187,16 @@ const RegisterForm = () => {
     };
 
     const registerResponseHandler = (data, user) => {
-
+        if (!data.success) {
+            setUsernameExists(true);
+        } else {
+            console.log("Success!!");
+        }
     };
 
     const registerUser = async (user) => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/admin/adduser`;
+        const url = `http://localhost:8000/admin/`;
         await fetch(url, {
             method: "POST",
             headers: {
@@ -209,19 +214,21 @@ const RegisterForm = () => {
 
         if (formIsValid) {
             let user = {
-                userName: userName.trim(),
+                username: userName.trim(),
                 password,
                 designation,
             };
     
-            if (designation === "Doctor") {
-                user = { ...user, name, address, department };
-            } else {
+            if (designation !== "Admin") {
                 user = { ...user, name, address };
+            } 
+
+            if (designation === "Doctor") {
+                user = {...user, department};
             }
 
             console.log(user);
-            // registerUser(user);
+            registerUser(user);
         }
     };
 
@@ -471,4 +478,4 @@ const RegisterForm = () => {
     );
 };
 
-export default RegisterForm;
+export default AddUserForm;

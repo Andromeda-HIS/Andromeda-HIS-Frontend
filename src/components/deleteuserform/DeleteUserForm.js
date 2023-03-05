@@ -1,11 +1,11 @@
 import { useState } from "react";
 import useInput from "../../hooks/use-input";
 
-import classes from "./RemoveForm.module.css";
+import classes from "./DeleteUserForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
-const RemoveForm = () => {
+const DeleteUserForm = () => {
     const [designation, setDesignation] = useState("Receptionist");
 
     const designationChangeHandler = (designation) => {
@@ -44,22 +44,24 @@ const RemoveForm = () => {
   
     const masterUsernameChangeHandler = (event) => {
         userNameChangeHandler(event);
-        setUsernameExists(false);
     };
 
     const removeUserResponseHandler = (data) => {
-
+        if (!data.success) {
+            setUsernameExists(false);
+        } else {
+            console.log("Success");
+        }
     }
 
     const removeUser = async (user) => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/admin/deleteuser`;
+        const url = `http://localhost:8000/admin/?designation=${user.designation}&username=${user.userName}`;
         await fetch(url, {
-            method: "POST",
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user)
+            }
         })
             .then((response) => response.json())
             .then((data) => removeUserResponseHandler(data, user))
@@ -76,7 +78,7 @@ const RemoveForm = () => {
             };
 
             console.log(user);
-            // removeUser(user);
+            removeUser(user);
         }
     };
 
@@ -191,4 +193,4 @@ const RemoveForm = () => {
     );
 };
 
-export default RemoveForm;
+export default DeleteUserForm;

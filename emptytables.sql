@@ -1,0 +1,10 @@
+DELETE FROM `Admin`;
+DELETE FROM Admitted;
+DELETE FROM Appointment;
+DELETE FROM Data_Entry_Operator;
+DELETE FROM Doctor;
+DELETE FROM Front_Desk_Operator;
+DELETE FROM Patient;
+DELETE FROM `Procedure`;
+DELETE FROM Room;
+DELETE FROM Treatment;

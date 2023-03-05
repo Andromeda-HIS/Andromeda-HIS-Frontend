@@ -1,0 +1,30 @@
+.rooms {
+    display: flex;
+    gap: 1rem;
+}
+
+.available {
+    width: 10rem;
+    height: 10rem;
+    background-color: green;
+    opacity: .8;
+}
+
+.available:hover {
+    opacity: 1;
+}
+
+.not-available {
+    width: 10rem;
+    height: 10rem;
+    background-color: orangered;
+    opacity: .8;
+}
+
+.not-available:hover {
+    opacity: 1;
+}
+
+.selected {
+    background-color: blueviolet;
+}
