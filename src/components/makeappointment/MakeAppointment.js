@@ -53,6 +53,13 @@ const MakeAppointment = () => {
             .catch((error) => console.log(error));
     };
 
+    let doctorErrorMessage = null;
+    if (!doctorAvailable) {
+        doctorErrorMessage = "Doctor not available.";
+    } else if (!selectedDoctor) {
+        doctorErrorMessage = "Doctor not selected.";
+    }
+
     return (
         <>
             <div className={classes["rooms"]}>
@@ -69,12 +76,13 @@ const MakeAppointment = () => {
                                     : ""
                             }`}
                         >
-                            {doctor.name} &nbsp; {doctor.department}
+                            <h2 className={classes["name"]}>{doctor.name}</h2>  
+                            <p className={classes["department"]}>{doctor.department}</p>
                         </div>
                     ))}
+
+                <div className={classes["error-message"]}>{doctorErrorMessage ? doctorErrorMessage : " "}</div>
             </div>
-            <div>{!doctorAvailable ? "Doctor not available" : " "}</div>
-            <div>{!selectedDoctor ? "Doctor not selected" : " "}</div>
         
             <MakeAppointmentForm
                 selected={selectedDoctor}

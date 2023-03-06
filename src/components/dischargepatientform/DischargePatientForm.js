@@ -3,6 +3,8 @@ import useInput from "../../hooks/use-input";
 
 import classes from "./DischargePatientForm.module.css";
 
+import FormCard from "../formcard/FormCard";
+
 const isNotEmpty = (value) => value.trim() !== "";
 
 const DischargePatientForm = () => {
@@ -22,9 +24,7 @@ const DischargePatientForm = () => {
     const errorClasses = classes["input__error"];
 
     const patientIdInputClasses =
-        patientIdInputHasError ||
-        !patientIdExists ||
-        !isAdmitted
+        patientIdInputHasError || !patientIdExists || !isAdmitted
             ? errorClasses
             : normalClasses;
 
@@ -35,7 +35,7 @@ const DischargePatientForm = () => {
         patientIdErrorMessage = "Patient does not exist.";
     } else if (!isAdmitted) {
         patientIdErrorMessage = "Patient has not been admitted.";
-    } 
+    }
 
     const dischargeResponseHandler = (data) => {
         console.log(data);
@@ -44,7 +44,7 @@ const DischargePatientForm = () => {
                 setPatientIdExists(false);
             } else {
                 setIsAdmitted(false);
-            }   
+            }
         } else {
             resetPatientId();
             setPatientIdExists(true);
@@ -61,7 +61,7 @@ const DischargePatientForm = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ patient_id: +discharge.patientId })
+            body: JSON.stringify({ patient_id: +discharge.patientId }),
         })
             .then((response) => response.json())
             .then((data) => dischargeResponseHandler(data))
@@ -81,47 +81,49 @@ const DischargePatientForm = () => {
     };
 
     return (
-        <form
-            className={`${classes["form"]}`}
-            autoComplete="off"
-            onSubmit={submitHandler}
-        >
-            <h1 className={classes["form__title"]}>Discharge Patient</h1>
-            <div className={`${classes["form__inputs"]}`}>
-                <div className={classes["input"]}>
-                    <label
-                        className={`${classes["input__label"]}`}
-                        htmlFor="patientId"
-                    >
-                        Patient Id
-                    </label>
-                    <input
-                        className={patientIdInputClasses}
-                        id="patientId"
-                        type="text"
-                        value={patientId}
-                        name="patientId"
-                        onChange={masterPatientIdChangeHandler}
-                        onBlur={patientIdInputBlurHandler}
-                    />
-                    {patientIdErrorMessage ? (
-                        <p className={classes["input__message"]}>
-                            {patientIdErrorMessage}
-                        </p>
-                    ) : (
-                        <p>&nbsp;</p>
-                    )}
+        <FormCard>
+            <form
+                className={`${classes["form"]}`}
+                autoComplete="off"
+                onSubmit={submitHandler}
+            >
+                <h1 className={classes["form__title"]}>Discharge Patient</h1>
+                <div className={`${classes["form__inputs"]}`}>
+                    <div className={classes["input"]}>
+                        <label
+                            className={`${classes["input__label"]}`}
+                            htmlFor="patientId"
+                        >
+                            Patient Id
+                        </label>
+                        <input
+                            className={patientIdInputClasses}
+                            id="patientId"
+                            type="text"
+                            value={patientId}
+                            name="patientId"
+                            onChange={masterPatientIdChangeHandler}
+                            onBlur={patientIdInputBlurHandler}
+                        />
+                        {patientIdErrorMessage ? (
+                            <p className={classes["input__message"]}>
+                                {patientIdErrorMessage}
+                            </p>
+                        ) : (
+                            <p>&nbsp;</p>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className={`${classes["form__btn-group"]}`}>
-                <button
-                    className={`${classes["form__btn"]}`}
-                    // disabled={!formIsValid}
-                >
-                    Discharge
-                </button>
-            </div>
-        </form>
+                <div className={`${classes["form__btn-group"]}`}>
+                    <button
+                        className={`${classes["form__btn"]}`}
+                        // disabled={!formIsValid}
+                    >
+                        Discharge
+                    </button>
+                </div>
+            </form>
+        </FormCard>
     );
 };
 

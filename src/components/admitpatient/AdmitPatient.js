@@ -21,7 +21,7 @@ const AdmitPatient = () => {
     const admitHandler = () => {
         setRecentlyAdmitted(true);
         setSelectedRoom(null);
-    }
+    };
 
     const roomDetailsResponseHandler = (data) => {
         console.log(data);
@@ -60,15 +60,24 @@ const AdmitPatient = () => {
                         <div
                             key={index}
                             onClick={() => roomChangeHandler(index)}
-                            className={
-                                `${room.available
+                            className={`${
+                                room.available
                                     ? classes["available"]
-                                    : classes["not-available"]} ${selectedRoom && selectedRoom.id === room.id ? classes["selected"] : ""}`
-                            }
-                        ></div>
+                                    : classes["not-available"]
+                            } ${
+                                selectedRoom && selectedRoom.id === room.id
+                                    ? (room.available ? classes["available-selected"] : classes["not-available-selected"])
+                                     : ""
+                            }`}
+                        >
+                            <h2 className={classes["name"]}>{room.id}</h2>
+                            <p className={classes["department"]}>
+                                HI
+                            </p>
+                        </div>
                     ))}
             </div>
-            <AdmitPatientForm selected={selectedRoom} onAdmit={admitHandler}/>
+            <AdmitPatientForm selected={selectedRoom} onAdmit={admitHandler} />
         </>
     );
 };

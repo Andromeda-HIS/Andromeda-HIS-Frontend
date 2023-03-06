@@ -82,9 +82,17 @@
 
 .story__img {
     height: 100%;
-    transform: translateX(-4rem) scale(1.4);
+    /* transform: translateX(-4rem) scale(1.4); */
     backface-visibility: hidden;
     transition: all .5s;
+}
+
+.ciri {
+    transform: translateX(-6rem) translateY(3rem) scale(1.4);
+}
+
+.geralt {
+    transform: translateX(-1.5rem) translateY(3rem) scale(1.4);
 }
 
 .story__text {

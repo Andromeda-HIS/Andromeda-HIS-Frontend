@@ -2,12 +2,17 @@
     padding: 20rem 0;
     background-image: linear-gradient(
         to right bottom,
-        #ff3366cc,
-        #ba265dcc),
-    url(./imgs/nat-4.jpg);
+        var(--color-primary-light-translucent),
+        var(--color-primary-dark-translucent)),
+    url(./imgs/vaccine.jpg);
     background-size: cover;
     transform: skewY(-7deg);
     margin-top: -2rem;
+}
+
+.heading-tertiary {
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .section-features > * {
@@ -23,7 +28,7 @@
 .feature-box {
     background-color: #ffffffcc;
     width: 32rem;
-    height: 40rem;
+    height: 50rem;
     font-size: 1.5rem;
     padding: 2.5rem;
     text-align: center;
@@ -33,6 +38,12 @@
     list-style: none;
 }
 
+.feature-box__text {
+    margin-top: 2rem;
+    /* text-align: left; */
+    font-size: 1.8rem;
+}
+
 .feature-box:hover {
     transform: translateY(-1.5rem) scale(1.03);
 }
@@ -40,5 +51,5 @@
 .feature-box__icon {
     font-size: 6rem;
     margin-bottom: 2rem;
-    color: #eb2f64aa;
+    color: var(--color-primary-translucent);
 }

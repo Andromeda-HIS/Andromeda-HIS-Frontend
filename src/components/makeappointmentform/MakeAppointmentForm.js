@@ -3,6 +3,8 @@ import useInput from "../../hooks/use-input";
 
 import classes from "./MakeAppointmentForm.module.css";
 
+import FormCard from "../formcard/FormCard";
+
 const isNotEmpty = (value) => value.trim() !== "";
 
 const MakeAppointmentForm = (props) => {
@@ -54,7 +56,8 @@ const MakeAppointmentForm = (props) => {
     } else if (!patientIdExists) {
         patientIdErrorMessage = "Patient does not exist.";
     } else if (appointmentExists) {
-        patientIdErrorMessage = "Patient already made an appointment for the given day.";
+        patientIdErrorMessage =
+            "Patient already made an appointment for the given day.";
     }
 
     let symptomsErrorMessage = null;
@@ -113,95 +116,97 @@ const MakeAppointmentForm = (props) => {
     };
 
     return (
-        <form
-            className={`${classes["form"]}`}
-            autoComplete="off"
-            onSubmit={submitHandler}
-        >
-            <h1 className={classes["form__title"]}>Make Appointment</h1>
-            <div className={`${classes["form__inputs"]}`}>
-                <div className={classes["input"]}>
-                    <label
-                        className={`${classes["input__label"]}`}
-                        htmlFor="patientId"
-                    >
-                        Patient Id
-                    </label>
-                    <input
-                        className={patientIdInputClasses}
-                        id="patientId"
-                        type="text"
-                        value={patientId}
-                        name="patientId"
-                        onChange={masterPatientIdChangeHandler}
-                        onBlur={patientIdInputBlurHandler}
-                    />
-                    {patientIdErrorMessage ? (
-                        <p className={classes["input__message"]}>
-                            {patientIdErrorMessage}
-                        </p>
-                    ) : (
-                        <p>&nbsp;</p>
-                    )}
+        <FormCard>
+            <form
+                className={`${classes["form"]}`}
+                autoComplete="off"
+                onSubmit={submitHandler}
+            >
+                <h1 className={classes["form__title"]}>Make Appointment</h1>
+                <div className={`${classes["form__inputs"]}`}>
+                    <div className={classes["input"]}>
+                        <label
+                            className={`${classes["input__label"]}`}
+                            htmlFor="patientId"
+                        >
+                            Patient Id
+                        </label>
+                        <input
+                            className={patientIdInputClasses}
+                            id="patientId"
+                            type="text"
+                            value={patientId}
+                            name="patientId"
+                            onChange={masterPatientIdChangeHandler}
+                            onBlur={patientIdInputBlurHandler}
+                        />
+                        {patientIdErrorMessage ? (
+                            <p className={classes["input__message"]}>
+                                {patientIdErrorMessage}
+                            </p>
+                        ) : (
+                            <p>&nbsp;</p>
+                        )}
+                    </div>
+                    <div className={classes["input"]}>
+                        <label
+                            className={`${classes["input__label"]}`}
+                            htmlFor="symptoms"
+                        >
+                            Symptoms
+                        </label>
+                        <input
+                            className={symptomsInputClasses}
+                            id="symptoms"
+                            type="text"
+                            value={symptoms}
+                            name="symptoms"
+                            onChange={symptomsChangeHandler}
+                            onBlur={symptomsInputBlurHandler}
+                        />
+                        {symptomsErrorMessage ? (
+                            <p className={classes["input__message"]}>
+                                {symptomsErrorMessage}
+                            </p>
+                        ) : (
+                            <p>&nbsp;</p>
+                        )}
+                    </div>
+                    <div className={classes["input"]}>
+                        <label
+                            className={`${classes["input__label"]}`}
+                            htmlFor="date"
+                        >
+                            Date
+                        </label>
+                        <input
+                            className={symptomsInputClasses}
+                            id="date"
+                            type="date"
+                            value={date}
+                            name="date"
+                            onChange={dateChangeHandler}
+                            onBlur={dateInputBlurHandler}
+                        />
+                        {symptomsErrorMessage ? (
+                            <p className={classes["input__message"]}>
+                                {symptomsErrorMessage}
+                            </p>
+                        ) : (
+                            <p>&nbsp;</p>
+                        )}
+                    </div>
                 </div>
-                <div className={classes["input"]}>
-                    <label
-                        className={`${classes["input__label"]}`}
-                        htmlFor="symptoms"
+                <div className={`${classes["form__btn-group"]}`}>
+                    <button
+                        className={`${classes["form__btn"]}`}
+                        // disabled={!formIsValid}
                     >
-                        Symptoms
-                    </label>
-                    <input
-                        className={symptomsInputClasses}
-                        id="symptoms"
-                        type="text"
-                        value={symptoms}
-                        name="symptoms"
-                        onChange={symptomsChangeHandler}
-                        onBlur={symptomsInputBlurHandler}
-                    />
-                    {symptomsErrorMessage ? (
-                        <p className={classes["input__message"]}>
-                            {symptomsErrorMessage}
-                        </p>
-                    ) : (
-                        <p>&nbsp;</p>
-                    )}
+                        Schedule
+                    </button>
                 </div>
-                <div className={classes["input"]}>
-                    <label
-                        className={`${classes["input__label"]}`}
-                        htmlFor="date"
-                    >
-                        Date
-                    </label>
-                    <input
-                        className={symptomsInputClasses}
-                        id="date"
-                        type="date"
-                        value={date}
-                        name="date"
-                        onChange={dateChangeHandler}
-                        onBlur={dateInputBlurHandler}
-                    />
-                    {symptomsErrorMessage ? (
-                        <p className={classes["input__message"]}>
-                            {symptomsErrorMessage}
-                        </p>
-                    ) : (
-                        <p>&nbsp;</p>
-                    )}
-                </div>
-            </div>
-            <div className={`${classes["form__btn-group"]}`}>
-                <button
-                    className={`${classes["form__btn"]}`}
-                    // disabled={!formIsValid}
-                >
-                    Schedule
-                </button>
-            </div>
-        </form>
+            </form>
+        </FormCard>
     );
 };
 

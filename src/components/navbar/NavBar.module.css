@@ -12,8 +12,28 @@
 }
 
 .logo {
-    height: 7.7rem;
     margin-left: 5rem;
+    font-size: 2rem;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    border-radius: 1rem;
+}
+
+.logo__icon {
+    width: 4rem;
+    height: 4rem;
+    border: .3rem solid var(--color-primary);
+    padding: .54rem;
+    border-radius: 100rem;
+    transition: all .5s;
+}
+
+.logo__icon:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: rotate(360deg);
+    cursor: pointer;
 }
 
 .primary-navigation__list {
@@ -112,11 +132,11 @@
 }
 
 .poweroff {
-    width: 5rem;
-    height: 5rem;
+    width: 5.4rem;
+    height: 5.4rem;
     padding: 1.4rem;
     cursor: pointer;
-    border: 2px solid var(--color-primary);
+    border: .3rem solid var(--color-primary);
     border-radius: 100rem;
     color: var(--color-primary);
     font-size: 3rem;

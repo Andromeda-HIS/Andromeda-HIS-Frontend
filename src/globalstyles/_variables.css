@@ -17,6 +17,10 @@
     --color-primary-light: #ff3366;
     --color-primary-dark: #ba265d;
 
+    --color-primary-translucent: #eb2f64cc;
+    --color-primary-light-translucent: #ff3366cc;
+    --color-primary-dark-translucent: #ba265dcc;
+
     --color-secondary: #e89a1a;
     --color-secondary-light: #ffb900;
     --color-secondary-dark: #ff7730;
@@ -25,9 +29,13 @@
     --color-tertiary-light: #7ed56f;
     --color-tertiary-dark: #28b485;
 
-    --color-quaternary: #3f6dfc;
-    --color-quaternary-light: #2998ff;
-    --color-quaternary-dark: #5643fa;
+    --color-quarternary: #3f6dfc;
+    --color-quarternary-light: #2998ff;
+    --color-quarternary-dark: #5643fa;
+
+    --color-pentanary: #bfaa8c;
+    --color-pentanary-light: #d1c0a8;
+    --color-pentanary-dark: #c8ad7e;
 
     /* DEFAULT FONT SIZE */
     --default-font-size: 1.6rem;

@@ -5,6 +5,7 @@ import {
     faPowerOff,
     faMessage,
     faEnvelope,
+    faA,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useContext } from "react";
@@ -66,7 +67,10 @@ const NavBar = () => {
 
     return (
         <header className={classes["header"]}>
-            <img src={logo} alt="logo" className={classes["logo"]} />
+            <div className={classes["logo"]}>
+                <FontAwesomeIcon icon={faA} className={classes["logo__icon"]} />
+            </div>
+            {/* <img src={logo} alt="logo" className={classes["logo"]} /> */}
             <nav className={classes["primary-navigation"]}>
                 <ul className={classes["primary-navigation__list"]}>
                     <li className={classes["primary-navigation__list-item"]}>

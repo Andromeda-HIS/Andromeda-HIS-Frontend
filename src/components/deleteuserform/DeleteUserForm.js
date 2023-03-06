@@ -2,6 +2,7 @@ import { useState } from "react";
 import useInput from "../../hooks/use-input";
 
 import classes from "./DeleteUserForm.module.css";
+import FormCard from "../formcard/FormCard";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
@@ -33,15 +34,15 @@ const DeleteUserForm = () => {
     const errorClasses = classes["input__error"];
 
     const userNameInputClasses =
-        (userNameInputHasError || !userNameExists) ? errorClasses : normalClasses;
+        userNameInputHasError || !userNameExists ? errorClasses : normalClasses;
 
     const userNameErrorMessage =
-        (userNameInputHasError || !userNameExists)
+        userNameInputHasError || !userNameExists
             ? userNameInputHasError
                 ? "Username must not be empty."
                 : "Username does not exist."
             : null;
-  
+
     const masterUsernameChangeHandler = (event) => {
         userNameChangeHandler(event);
     };
@@ -52,7 +53,7 @@ const DeleteUserForm = () => {
         } else {
             console.log("Success");
         }
-    }
+    };
 
     const removeUser = async (user) => {
         window.scroll(0, 0);
@@ -61,12 +62,12 @@ const DeleteUserForm = () => {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         })
             .then((response) => response.json())
             .then((data) => removeUserResponseHandler(data, user))
             .catch((error) => console.log(error));
-    }
+    };
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -148,48 +149,50 @@ const DeleteUserForm = () => {
     );
 
     return (
-        <form
-            className={`${classes["form"]}`}
-            autoComplete="off"
-            onSubmit={submitHandler}
-        >
-            <h1 className={classes["form__title"]}>Remove</h1>
-            {radioButtons}
-            <div className={`${classes["form__inputs"]}`}>
-                <div className={classes["input"]}>
-                    <label
-                        className={`${classes["input__label"]}`}
-                        htmlFor="userName"
-                    >
-                        Username
-                    </label>
-                    <input
-                        className={userNameInputClasses}
-                        id="userName"
-                        type="text"
-                        value={userName}
-                        name="username"
-                        onChange={masterUsernameChangeHandler}
-                        onBlur={userNameInputBlurHandler}
-                    />
-                    {userNameErrorMessage ? (
-                        <p className={classes["input__message"]}>
-                            {userNameErrorMessage}
-                        </p>
-                    ) : (
-                        <p>&nbsp;</p>
-                    )}
+        <FormCard>
+            <form
+                className={`${classes["form"]}`}
+                autoComplete="off"
+                onSubmit={submitHandler}
+            >
+                <h1 className={classes["form__title"]}>Remove</h1>
+                {radioButtons}
+                <div className={`${classes["form__inputs"]}`}>
+                    <div className={classes["input"]}>
+                        <label
+                            className={`${classes["input__label"]}`}
+                            htmlFor="userName"
+                        >
+                            Username
+                        </label>
+                        <input
+                            className={userNameInputClasses}
+                            id="userName"
+                            type="text"
+                            value={userName}
+                            name="username"
+                            onChange={masterUsernameChangeHandler}
+                            onBlur={userNameInputBlurHandler}
+                        />
+                        {userNameErrorMessage ? (
+                            <p className={classes["input__message"]}>
+                                {userNameErrorMessage}
+                            </p>
+                        ) : (
+                            <p>&nbsp;</p>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className={`${classes["form__btn-group"]}`}>
-                <button
-                    className={`${classes["form__btn"]}`}
-                    // disabled={!formIsValid}
-                >
-                    Remove
-                </button>
-            </div>
-        </form>
+                <div className={`${classes["form__btn-group"]}`}>
+                    <button
+                        className={`${classes["form__btn"]}`}
+                        // disabled={!formIsValid}
+                    >
+                        Remove
+                    </button>
+                </div>
+            </form>
+        </FormCard>
     );
 };
 

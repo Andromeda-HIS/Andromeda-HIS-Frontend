@@ -1,0 +1,15 @@
+.footer {
+    margin-top: 5rem;
+    width: 100%;
+    height: 10rem;
+    font-size: 3rem;
+    font-weight: 700;
+    background-color: var(--color-grey-dark-1);
+    background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+    color: var(--color-grey-light-2);
+    text-align: center;
+    padding: auto 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

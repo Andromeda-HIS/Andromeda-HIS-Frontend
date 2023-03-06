@@ -1,9 +1,9 @@
 .header {
     background-image: linear-gradient(
         to right bottom,
-        #ff3366cc,
-        #ba265dcc),
-    url(./imgs/hero.jpg);
+        var(--color-primary-light-translucent),
+        var(--color-primary-dark-translucent)),
+    url(./imgs/operating-bed.jpg);
     background-size: cover;
     background-position: top;
 

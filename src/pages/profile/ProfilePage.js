@@ -16,6 +16,8 @@ import DischargePatient from "../../components/dischargepatient/DischargePatient
 import MakeAppointment from "../../components/makeappointment/MakeAppointment";
 import SearchBar from "../../components/searchbar/SearchBar";
 import SearchPatient from "../../components/searchpatient/SearchPatient";
+import ScheduleTest from "../../components/scheduletest/ScheduleTest";
+import ScheduleTreatment from "../../components/scheduletreatment/ScheduleTreatment";
 
 const ProfilePage = (props) => {
     const userCtx = useContext(UserContext);
@@ -45,9 +47,9 @@ const ProfilePage = (props) => {
     } else if (props.tab === "Treat") {
         content = <TreatPatient />;
     } else if (props.tab === "Schedule Test") {
-        content = <Title />;
+        content = <ScheduleTest />;
     } else if (props.tab === "Schedule Treatment") {
-        content = <Title />;
+        content = <ScheduleTreatment />;
     }
 
     return (

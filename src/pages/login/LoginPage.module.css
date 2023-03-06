@@ -1,7 +1,7 @@
 .login {
     padding: 5rem;
     padding-bottom: 10rem;
-    background-image: linear-gradient(to right bottom, var(--color-secondary-light), var(--color-secondary-dark));
+    background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
 }
 
 .book {

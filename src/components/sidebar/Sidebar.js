@@ -124,7 +124,7 @@ const Sidebar = () => {
                 </li> */}
             </ul>
             <div className={classes["legal"]}>
-                &copy; 2023 by andromeda. All rights reserved.
+                &copy; 2023 by aerondight.<br /> All rights reserved.
             </div>
         </nav>
     );

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import useInput from "../../hooks/use-input";
+import FormCard from "../formcard/FormCard";
+
 
 import classes from "./AdmitPatientForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
-const AdmitPatientForm = (props) => {
 
+const AdmitPatientForm = (props) => {
     const {
         value: patientId,
         isValid: patientIdIsValid,
@@ -42,7 +44,7 @@ const AdmitPatientForm = (props) => {
         patientIdErrorMessage =
             "Room not available. Please select another room.";
     } else if (alreadyAdmitted) {
-        patientIdErrorMessage = "Patient already admitted."
+        patientIdErrorMessage = "Patient already admitted.";
     }
 
     const submitHandler = (event) => {
@@ -58,7 +60,7 @@ const AdmitPatientForm = (props) => {
                 setPatientIdExists(false);
             } else {
                 setAlreadyAdmitted(true);
-            }   
+            }
         } else {
             props.onAdmit();
             resetPatientId();
@@ -88,47 +90,49 @@ const AdmitPatientForm = (props) => {
     };
 
     return (
-        <form
-            className={`${classes["form"]}`}
-            autoComplete="off"
-            onSubmit={submitHandler}
-        >
-            <h1 className={classes["form__title"]}>Admit Patient</h1>
-            <div className={`${classes["form__inputs"]}`}>
-                <div className={classes["input"]}>
-                    <label
-                        className={`${classes["input__label"]}`}
-                        htmlFor="patientId"
-                    >
-                        Patient Id
-                    </label>
-                    <input
-                        className={patientIdInputClasses}
-                        id="patientId"
-                        type="text"
-                        value={patientId}
-                        name="patientId"
-                        onChange={masterPatientIdChangeHandler}
-                        onBlur={patientIdInputBlurHandler}
-                    />
-                    {patientIdErrorMessage ? (
-                        <p className={classes["input__message"]}>
-                            {patientIdErrorMessage}
-                        </p>
-                    ) : (
-                        <p>&nbsp;</p>
-                    )}
+        <FormCard>
+            <form
+                className={`${classes["form"]}`}
+                autoComplete="off"
+                onSubmit={submitHandler}
+            >
+                <h1 className={classes["form__title"]}>Admit Patient</h1>
+                <div className={`${classes["form__inputs"]}`}>
+                    <div className={classes["input"]}>
+                        <label
+                            className={`${classes["input__label"]}`}
+                            htmlFor="patientId"
+                        >
+                            Patient Id
+                        </label>
+                        <input
+                            className={patientIdInputClasses}
+                            id="patientId"
+                            type="text"
+                            value={patientId}
+                            name="patientId"
+                            onChange={masterPatientIdChangeHandler}
+                            onBlur={patientIdInputBlurHandler}
+                        />
+                        {patientIdErrorMessage ? (
+                            <p className={classes["input__message"]}>
+                                {patientIdErrorMessage}
+                            </p>
+                        ) : (
+                            <p>&nbsp;</p>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className={`${classes["form__btn-group"]}`}>
-                <button
-                    className={`${classes["form__btn"]}`}
-                    // disabled={!formIsValid}
-                >
-                    Admit
-                </button>
-            </div>
-        </form>
+                <div className={`${classes["form__btn-group"]}`}>
+                    <button
+                        className={`${classes["form__btn"]}`}
+                        // disabled={!formIsValid}
+                    >
+                        Admit
+                    </button>
+                </div>
+            </form>
+        </FormCard>
     );
 };
 

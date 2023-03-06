@@ -1,5 +1,8 @@
+import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 import { useState } from "react";
 import useInput from "../../hooks/use-input";
+
+import FormCard from "../formcard/FormCard";
 
 import classes from "./AddUserForm.module.css";
 
@@ -202,12 +205,12 @@ const AddUserForm = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(user),
         })
             .then((response) => response.json())
             .then((data) => registerResponseHandler(data, user))
             .catch((error) => console.log(error));
-    }
+    };
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -218,13 +221,13 @@ const AddUserForm = () => {
                 password,
                 designation,
             };
-    
+
             if (designation !== "Admin") {
                 user = { ...user, name, address };
-            } 
+            }
 
             if (designation === "Doctor") {
-                user = {...user, department};
+                user = { ...user, department };
             }
 
             console.log(user);
@@ -454,27 +457,29 @@ const AddUserForm = () => {
     );
 
     return (
-        <form
-            className={`${classes["form"]}`}
-            autoComplete="off"
-            onSubmit={submitHandler}
-        >
-            <h1 className={classes["form__title"]}>Register</h1>
-            {radioButtons}
-            <div className={`${classes["form__inputs"]}`}>
-                {basicInputs}
-                {designation !== "Admin" && staffSpecificInputs}
-                {designation === "Doctor" && doctorSpecificInputs}
-            </div>
-            <div className={`${classes["form__btn-group"]}`}>
-                <button
-                    className={`${classes["form__btn"]}`}
-                    // disabled={!formIsValid}
-                >
-                    Register
-                </button>
-            </div>
-        </form>
+        <FormCard>
+            <form
+                className={`${classes["form"]}`}
+                autoComplete="off"
+                onSubmit={submitHandler}
+            >
+                <h1 className={classes["form__title"]}>Register</h1>
+                {radioButtons}
+                <div className={`${classes["form__inputs"]}`}>
+                    {basicInputs}
+                    {designation !== "Admin" && staffSpecificInputs}
+                    {designation === "Doctor" && doctorSpecificInputs}
+                </div>
+                <div className={`${classes["form__btn-group"]}`}>
+                    <button
+                        className={`${classes["form__btn"]}`}
+                        // disabled={!formIsValid}
+                    >
+                        Register
+                    </button>
+                </div>
+            </form>
+        </FormCard>
     );
 };
 
