@@ -2,6 +2,8 @@ import classes from "./TreatPatientForm.module.css";
 import useInput from "../../hooks/use-input";
 import { useState, useEffect, useContext } from "react";
 
+import FormCard from "../formcard/FormCard";
+
 import UserContext from "../../store/user-context";
 
 const TreatPatientForm = (props) => {
@@ -81,13 +83,13 @@ const TreatPatientForm = (props) => {
     };
 
     return (
-        <>
+        <FormCard>
             <form
                 className={`${classes["form"]}`}
                 autoComplete="off"
                 onSubmit={submitHandler}
             >
-                <h1 className={classes["form__title"]}>Treat</h1>
+                <h1 className={classes["form__title"]}>Prescribe</h1>
                 <div className={`${classes["form__inputs"]}`}>
                     <div className={classes["input"]}>
                         <label
@@ -137,17 +139,11 @@ const TreatPatientForm = (props) => {
                         className={`${classes["form__btn"]}`}
                         // disabled={!formIsValid}
                     >
-                        Resolve
+                        Prescribe
                     </button>
                 </div>
             </form>
-            <button
-                className={`${classes["form__btn"]}`}
-                onClick={props.onBack}
-            >
-                Go Back
-            </button>
-        </>
+        </FormCard>
     );
 };
 

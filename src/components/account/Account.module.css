@@ -1,0 +1,10 @@
+.account {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+}
+
+.account__table {
+    width: 60%;
+}

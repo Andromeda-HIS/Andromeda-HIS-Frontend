@@ -1,8 +1,10 @@
 import UserContext from "../../store/user-context";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 
 import classes from "./TreatPatient.module.css";
 import TreatPatientForm from "../treatpatientform/TreatPatientForm";
+
+import Table from "../table/Table";
 
 const TreatPatient = () => {
     const userCtx = useContext(UserContext);
@@ -10,13 +12,7 @@ const TreatPatient = () => {
     const [appointments, setAppointments] = useState(null);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
 
-    useEffect(() => {
-        if (!selectedAppointment) {
-            appointmentDetailsHandler();
-        }
-    }, [selectedAppointment]);
-
-    const appointmentDetailsResponseHandler = (data) => {
+    const appointmentDetailsResponseHandler = useCallback((data) => {
         let receivedAppointments = [];
         for (let receivedAppointment of data.data) {
             receivedAppointments.push({
@@ -29,9 +25,9 @@ const TreatPatient = () => {
 
         console.log(receivedAppointments);
         setAppointments(receivedAppointments);
-    };
+    }, []);
 
-    const appointmentDetailsHandler = async () => {
+    const appointmentDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/doctor/all_appointments?doctor_username=${userCtx.user.userName}`;
         await fetch(url, {
@@ -43,7 +39,13 @@ const TreatPatient = () => {
             .then((response) => response.json())
             .then((data) => appointmentDetailsResponseHandler(data))
             .catch((error) => console.log(error));
-    };
+    }, [userCtx.user.userName, appointmentDetailsResponseHandler]);
+
+    useEffect(() => {
+        if (!selectedAppointment) {
+            appointmentDetailsHandler();
+        }
+    }, [selectedAppointment, appointmentDetailsHandler]);
 
     const appointmentResolveResponseHandler = (data) => {
         console.log(data);
@@ -102,14 +104,42 @@ const TreatPatient = () => {
             )}
             {selectedAppointment && (
                 <div>
-                    <div>{selectedAppointment.patientAddress}</div>
-                    <div>{selectedAppointment.symptoms}</div>
-                    <div>{selectedAppointment.date.toString()}</div>
+                    <Table
+                        title="Patient Details"
+                        data={[
+                            {
+                                field: "Id",
+                                value: selectedAppointment.appointmentId,
+                            },
+                            {
+                                field: "patientId",
+                                value: selectedAppointment.patientId,
+                            },
+                            {
+                                field: "Name",
+                                value: selectedAppointment.patientName,
+                            },
+                            {
+                                field: "Address",
+                                value: selectedAppointment.patientAddress,
+                            },
+                            {
+                                field: "Symptoms",
+                                value: selectedAppointment.symptoms,
+                            },
+                        ]}
+                    />
                     <TreatPatientForm
                         patientId={selectedAppointment.patientId}
                         appointmentId={selectedAppointment.appointmentId}
                         onBack={goBackHandler}
                     />
+                    <button
+                        className={`${classes["go-back__btn"]}`}
+                        onClick={goBackHandler}
+                    >
+                        Go Back
+                    </button>
                 </div>
             )}
         </>

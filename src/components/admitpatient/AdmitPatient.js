@@ -1,18 +1,11 @@
 import AdmitPatientForm from "../admitpatientform/AdmitPatientForm";
 import classes from "./AdmitPatient.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const AdmitPatient = () => {
     const [rooms, setRooms] = useState(null);
     const [selectedRoom, setSelectedRoom] = useState(null);
     const [recentlyAdmitted, setRecentlyAdmitted] = useState(true);
-
-    useEffect(() => {
-        if (recentlyAdmitted) {
-            roomDetailsHandler();
-            setRecentlyAdmitted(false);
-        }
-    }, [recentlyAdmitted]);
 
     const roomChangeHandler = (index) => {
         setSelectedRoom(rooms[index]);
@@ -23,7 +16,7 @@ const AdmitPatient = () => {
         setSelectedRoom(null);
     };
 
-    const roomDetailsResponseHandler = (data) => {
+    const roomDetailsResponseHandler = useCallback((data) => {
         console.log(data);
         const receivedRooms = [];
         for (let receivedRoom of data.data) {
@@ -35,9 +28,9 @@ const AdmitPatient = () => {
         }
         // console.log(receivedRooms);
         setRooms(receivedRooms);
-    };
+    }, []);
 
-    const roomDetailsHandler = async () => {
+    const roomDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/receptionist/rooms`;
         await fetch(url, {
@@ -49,7 +42,14 @@ const AdmitPatient = () => {
             .then((response) => response.json())
             .then((data) => roomDetailsResponseHandler(data))
             .catch((error) => console.log(error));
-    };
+    }, [roomDetailsResponseHandler]);
+
+    useEffect(() => {
+        if (recentlyAdmitted) {
+            roomDetailsHandler();
+            setRecentlyAdmitted(false);
+        }
+    }, [roomDetailsHandler, recentlyAdmitted]);
 
     return (
         <>
@@ -71,9 +71,6 @@ const AdmitPatient = () => {
                             }`}
                         >
                             <h2 className={classes["name"]}>{room.id}</h2>
-                            <p className={classes["department"]}>
-                                HI
-                            </p>
                         </div>
                     ))}
             </div>

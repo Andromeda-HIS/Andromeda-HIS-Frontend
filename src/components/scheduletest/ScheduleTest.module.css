@@ -1,5 +1,190 @@
-.main {
-    width: 10rem;
-    height: 10rem;
-    background-color: coral;
+.search-patient {
+    width: 100%;
+    padding: 2rem 2.5rem;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, .5), rgba(255, 255, 255, .6)), url(https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+}
+
+.go-back__btn {
+    margin-top: 5rem;
+    width: 60%;
+    font-size: 2.4rem;
+    padding: .5rem 2rem;
+    color: var(--color-white);
+    border-radius: .5rem;
+    background-color: var(--color-primary-light);
+    border: 2px solid var(--color-primary-light);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.go-back__btn:active {
+    transform: scale(.92);
+}
+
+.go-back__btn:hover {
+    border: 2px solid var(--color-primary-dark);
+    background-color: var(--color-primary-dark);
+}
+
+.details__table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.more__details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 10rem;
+}
+
+.details__table {
+    width: 75%;
+}
+
+.treatment__table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.treatment__table {
+    width: 75%;
+}
+
+.patient-preview__list {
+    margin: 15rem auto 10rem;
+    list-style: none;
+}
+
+.patient-details__list {
+    margin: 10rem auto 5rem;
+    list-style: none;
+}
+
+/* .patient-details__list:not(:last-child) {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+} */
+
+.patient-preview {
+    width: 100%;
+    height: 5rem;
+    background-color: var(--color-primary-light);
+    padding: 5rem 2rem;
+
+    border: .3rem solid var(--color-primary-light);
+    border-radius: 20px;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    background-image: linear-gradient(to right, rgba(255, 255, 255, .8) 0%, rgba(255, 255, 255, .8) 18%, rgba(255, 255, 255, .7) 18%);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(2px);
+    transition: all .2s;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patient-preview:hover {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, .7) 0%, rgba(255, 255, 255, .7) 18%, rgba(255, 255, 255, .6) 18%);
+    background-color: var(--color-primary);
+    border: .3rem solid var(--color-primary);
+    color: var(--color-black);
+    cursor: pointer;
+}
+
+.patient-details {
+    width: 100%;
+    height: 5rem;
+    background-color: var(--color-primary-light);
+    padding: var(--cell-padding);
+
+    border: .3rem solid var(--color-primary-light);
+    border-radius: 20px;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    background-image: linear-gradient(to right, rgba(255, 255, 255, .8) 0%, rgba(255, 255, 255, .8) 18%, rgba(255, 255, 255, .7) 18%);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(2px);
+    transition: all .2s;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patient-details:first-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.patient-details:not(:last-child).patient-details:not(:first-child) {
+    border-radius: 0;
+}
+
+.patient-details:not(:last-child) {
+    border-bottom: 0;
+}
+
+.patient-details:last-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.not-found {
+    border: .3rem solid rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    background-image: linear-gradient(to right, rgba(255, 255, 255, .7) 0%);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    text-align: center;
+
+    width: 100%;
+    height: 5rem;
+    background-color: rgba(255, 0, 0, .7);
+    padding: 5rem 2rem;
+
+    color: var(--color-white);
+
+    font-size: 4rem;
+    font-weight: 600;
+
+    margin: 15rem auto 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.id {
+    font-size: 5rem;
+    font-weight: 700;
+    width: 10%;
+    text-align: center;
+}
+
+.name {
+    font-size: 4rem;
+    font-weight: 600;
+    width: 80%;
+}
+
+.field {
+    font-size: var(--field-font-size);
+    font-weight: 700;
+    width: 10%;
+    text-align: center; 
+}
+
+.value {
+    font-size: var(--value-font-size);
+    font-weight: 600;
+    width: 80%;
 }

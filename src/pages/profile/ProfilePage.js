@@ -18,18 +18,15 @@ import SearchBar from "../../components/searchbar/SearchBar";
 import SearchPatient from "../../components/searchpatient/SearchPatient";
 import ScheduleTest from "../../components/scheduletest/ScheduleTest";
 import ScheduleTreatment from "../../components/scheduletreatment/ScheduleTreatment";
+import Account from "../../components/account/Account";
+import SaveTestResult from "../../components/savetestresult/SaveTestResult";
 
 const ProfilePage = (props) => {
     const userCtx = useContext(UserContext);
 
     let content;
     if (props.tab === "Account") {
-        content = (
-            <>
-                <Title />
-                <Feedback />
-            </>
-        );
+        content = <Account />;
     } else if (props.tab === "Add User") {
         content = <AddUserForm />;
     } else if (props.tab === "Delete User") {
@@ -50,6 +47,8 @@ const ProfilePage = (props) => {
         content = <ScheduleTest />;
     } else if (props.tab === "Schedule Treatment") {
         content = <ScheduleTreatment />;
+    } else if (props.tab === "Save Test Result") {
+        content = <SaveTestResult />
     }
 
     return (

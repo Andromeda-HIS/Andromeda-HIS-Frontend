@@ -1,15 +1,28 @@
-import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 import { useState } from "react";
 import useInput from "../../hooks/use-input";
 
 import FormCard from "../formcard/FormCard";
 
 import classes from "./AddUserForm.module.css";
+import ResponseModal from "../responsemodal/ResponseModal";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
 const AddUserForm = () => {
     const [designation, setDesignation] = useState("Receptionist");
+    const [modalOn, setModalOn] = useState(false);
+    const [modalTitle, setModalTitle] = useState(null);
+    const [modalMessage, setModalMessage] = useState(null);
+
+    const hideModalHandler = () => {
+        setModalOn(false);
+    }
+
+    const showModalHandler = (title, message) => {
+        setModalTitle(title);
+        setModalMessage(message);
+        setModalOn(true);
+    }
 
     const designationChangeHandler = (designation) => {
         setDesignation(designation);
@@ -193,7 +206,7 @@ const AddUserForm = () => {
         if (!data.success) {
             setUsernameExists(true);
         } else {
-            console.log("Success!!");
+            showModalHandler("Add User", "Successfully added the user to the database.");
         }
     };
 
@@ -220,11 +233,9 @@ const AddUserForm = () => {
                 username: userName.trim(),
                 password,
                 designation,
+                name,
+                address
             };
-
-            if (designation !== "Admin") {
-                user = { ...user, name, address };
-            }
 
             if (designation === "Doctor") {
                 user = { ...user, department };
@@ -458,6 +469,7 @@ const AddUserForm = () => {
 
     return (
         <FormCard>
+            {modalOn && <ResponseModal onConfirm={hideModalHandler} title={modalTitle} message={modalMessage}/>}
             <form
                 className={`${classes["form"]}`}
                 autoComplete="off"
@@ -467,7 +479,7 @@ const AddUserForm = () => {
                 {radioButtons}
                 <div className={`${classes["form__inputs"]}`}>
                     {basicInputs}
-                    {designation !== "Admin" && staffSpecificInputs}
+                    {staffSpecificInputs}
                     {designation === "Doctor" && doctorSpecificInputs}
                 </div>
                 <div className={`${classes["form__btn-group"]}`}>

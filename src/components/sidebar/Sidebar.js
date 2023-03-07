@@ -41,6 +41,7 @@ const Sidebar = () => {
         tabs = [
             { title: "Schedule Test", icon: faHippo },
             { title: "Schedule Treatment", icon: faMugSaucer },
+            { title: "Save Test Result", icon: faSearch }
         ];
     } else if (userCtx.user.designation === "Doctor") {
         tabs = [
@@ -59,7 +60,7 @@ const Sidebar = () => {
                         <li
                             key={index}
                             className={`${classes["side-nav__item"]} ${
-                                tab.title.toLowerCase().replace(" ", "") ===
+                                tab.title.toLowerCase().replaceAll(" ", "") ===
                                 activeTab
                                     ? classes["side-nav__item--active"]
                                     : ""
@@ -68,7 +69,7 @@ const Sidebar = () => {
                             <Link
                                 to={`/profile/${tab.title
                                     .toLowerCase()
-                                    .replace(" ", "")}`}
+                                    .replaceAll(" ", "")}`}
                                 className={classes["side-nav__link"]}
                             >
                                 <FontAwesomeIcon

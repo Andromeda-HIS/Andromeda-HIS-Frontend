@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useInput from "../../hooks/use-input";
+import ResponseModal from "../responsemodal/ResponseModal";
 
 import classes from "./DischargePatientForm.module.css";
 
@@ -8,6 +9,20 @@ import FormCard from "../formcard/FormCard";
 const isNotEmpty = (value) => value.trim() !== "";
 
 const DischargePatientForm = () => {
+    const [modalOn, setModalOn] = useState(false);
+    const [modalTitle, setModalTitle] = useState(null);
+    const [modalMessage, setModalMessage] = useState(null);
+
+    const hideModalHandler = () => {
+        setModalOn(false);
+    }
+
+    const showModalHandler = (title, message) => {
+        setModalTitle(title);
+        setModalMessage(message);
+        setModalOn(true);
+    }
+
     const {
         value: patientId,
         isValid: patientIdIsValid,
@@ -49,6 +64,7 @@ const DischargePatientForm = () => {
             resetPatientId();
             setPatientIdExists(true);
             setIsAdmitted(true);
+            showModalHandler("Discharge Patient", "Successfully discharged the patient.");
         }
     };
 
@@ -87,6 +103,7 @@ const DischargePatientForm = () => {
                 autoComplete="off"
                 onSubmit={submitHandler}
             >
+                {modalOn && <ResponseModal onConfirm={hideModalHandler} title={modalTitle} message={modalMessage}/>}
                 <h1 className={classes["form__title"]}>Discharge Patient</h1>
                 <div className={`${classes["form__inputs"]}`}>
                     <div className={classes["input"]}>

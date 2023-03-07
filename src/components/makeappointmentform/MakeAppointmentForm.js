@@ -3,11 +3,27 @@ import useInput from "../../hooks/use-input";
 
 import classes from "./MakeAppointmentForm.module.css";
 
+import ResponseModal from "../responsemodal/ResponseModal";
+
 import FormCard from "../formcard/FormCard";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
 const MakeAppointmentForm = (props) => {
+    const [modalOn, setModalOn] = useState(false);
+    const [modalTitle, setModalTitle] = useState(null);
+    const [modalMessage, setModalMessage] = useState(null);
+
+    const hideModalHandler = () => {
+        setModalOn(false);
+    }
+
+    const showModalHandler = (title, message) => {
+        setModalTitle(title);
+        setModalMessage(message);
+        setModalOn(true);
+    }
+
     const {
         value: patientId,
         isValid: patientIdIsValid,
@@ -65,15 +81,27 @@ const MakeAppointmentForm = (props) => {
         symptomsErrorMessage = "Symptoms cannot be empty.";
     }
 
+    let dateErrorMessage = null;
+    if (dateInputHasError) {
+        dateErrorMessage = "Please enter a date.";
+    }
+
+    let formIsValid = false;
+    if (patientIdIsValid && !appointmentExists && symptomsIsValid && dateIsValid) {
+        formIsValid = true;
+    }
+
     const submitHandler = (event) => {
         event.preventDefault();
 
-        appointmentHandler({
-            patient_id: +patientId,
-            doctor_username: props.selected.userName,
-            date,
-            symptoms,
-        });
+        if (formIsValid) {
+            appointmentHandler({
+                patient_id: +patientId,
+                doctor_username: props.selected.userName,
+                date,
+                symptoms,
+            });
+        }
     };
 
     const appointmentResponseHandler = (data) => {
@@ -89,8 +117,11 @@ const MakeAppointmentForm = (props) => {
         } else {
             props.onAppointment();
             resetPatientId();
+            resetSymptoms();
+            resetDate();
             setAppointmentExists(false);
             props.onChangeDoctorAvailablility(true);
+            showModalHandler("Make Appointment", "Successfully made the appointment.");
         }
     };
 
@@ -113,6 +144,7 @@ const MakeAppointmentForm = (props) => {
     const masterPatientIdChangeHandler = (event) => {
         patientIdChangeHandler(event);
         setPatientIdExists(true);
+        setAppointmentExists(false);
     };
 
     return (
@@ -122,6 +154,7 @@ const MakeAppointmentForm = (props) => {
                 autoComplete="off"
                 onSubmit={submitHandler}
             >
+                {modalOn && <ResponseModal onConfirm={hideModalHandler} title={modalTitle} message={modalMessage}/>}
                 <h1 className={classes["form__title"]}>Make Appointment</h1>
                 <div className={`${classes["form__inputs"]}`}>
                     <div className={classes["input"]}>
@@ -188,9 +221,9 @@ const MakeAppointmentForm = (props) => {
                             onChange={dateChangeHandler}
                             onBlur={dateInputBlurHandler}
                         />
-                        {symptomsErrorMessage ? (
+                        {dateErrorMessage ? (
                             <p className={classes["input__message"]}>
-                                {symptomsErrorMessage}
+                                {dateErrorMessage}
                             </p>
                         ) : (
                             <p>&nbsp;</p>

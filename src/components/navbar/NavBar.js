@@ -39,7 +39,7 @@ const NavBar = () => {
                 <ul className={`${classes["primary-navigation__list"]} ${classes["navigation-end"]}`}>
                     <li className={classes["primary-navigation__list-item"]}>
                         <NavLink
-                            to="/profile"
+                            to="/profile/account"
                             className={({ isActive }) =>
                                 isActive ? classes["active"] : undefined
                             }

@@ -2,11 +2,12 @@
     padding: 5rem;
     padding-bottom: 10rem;
     background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
+    border-radius: 1rem;
 }
 
 .book {
     background-image: linear-gradient(105deg, #ffffffe6 0%, #ffffffe6 50%, transparent 50%), url(./imgs/nat-10.jpg);
     background-size: cover;
-    border-radius: 3px;
+    border-radius: 1rem;
     box-shadow: 0 1.5rem 4rem #00000033;
 }

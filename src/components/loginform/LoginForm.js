@@ -11,6 +11,7 @@ const LoginForm = () => {
     const [designation, setDesignation] = useState("Receptionist");
 
     const designationChangeHandler = (designation) => {
+        setUsernameExists(true);
         setDesignation(designation);
     };
 
@@ -36,8 +37,9 @@ const LoginForm = () => {
     const [isPasswordCorrect, setIsPasswordCorrect] = useState(true);
 
     let formIsValid = false;
-    if (userNameIsValid && !usernameExists && passwordIsValid)
+    if (userNameIsValid && usernameExists && passwordIsValid) {
         formIsValid = true;
+    }
 
     const normalClasses = classes["input__field"];
     const errorClasses = classes["input__error"];
@@ -57,6 +59,8 @@ const LoginForm = () => {
                 setIsPasswordCorrect(false);
             }
         } else {
+            resetUserName();
+            resetPassword();
             userCtx.onLogin(user);
         }
     };
@@ -89,14 +93,14 @@ const LoginForm = () => {
     const submitHandler = (event) => {
         event.preventDefault();
 
-        const user = {
-            userName: userName.trim(),
-            password,
-            designation,
-        };
-
-        console.log(user);
-        loginUser(user);
+        if (formIsValid) {
+            const user = {
+                userName: userName.trim(),
+                password,
+                designation,
+            };
+            loginUser(user);
+        }
     };
 
     return (

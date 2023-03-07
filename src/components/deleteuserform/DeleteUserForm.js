@@ -4,10 +4,26 @@ import useInput from "../../hooks/use-input";
 import classes from "./DeleteUserForm.module.css";
 import FormCard from "../formcard/FormCard";
 
+import ResponseModal from "../responsemodal/ResponseModal";
+
+
 const isNotEmpty = (value) => value.trim() !== "";
 
 const DeleteUserForm = () => {
     const [designation, setDesignation] = useState("Receptionist");
+    const [modalOn, setModalOn] = useState(false);
+    const [modalTitle, setModalTitle] = useState(null);
+    const [modalMessage, setModalMessage] = useState(null);
+
+    const hideModalHandler = () => {
+        setModalOn(false);
+    }
+
+    const showModalHandler = (title, message) => {
+        setModalTitle(title);
+        setModalMessage(message);
+        setModalOn(true);
+    }
 
     const designationChangeHandler = (designation) => {
         setDesignation(designation);
@@ -44,6 +60,7 @@ const DeleteUserForm = () => {
             : null;
 
     const masterUsernameChangeHandler = (event) => {
+        setUsernameExists(true);
         userNameChangeHandler(event);
     };
 
@@ -51,7 +68,7 @@ const DeleteUserForm = () => {
         if (!data.success) {
             setUsernameExists(false);
         } else {
-            console.log("Success");
+            showModalHandler("Remove User", "Successfully removed the user from the database.");
         }
     };
 
@@ -150,6 +167,7 @@ const DeleteUserForm = () => {
 
     return (
         <FormCard>
+            {modalOn && <ResponseModal onConfirm={hideModalHandler} title={modalTitle} message={modalMessage}/>}
             <form
                 className={`${classes["form"]}`}
                 autoComplete="off"

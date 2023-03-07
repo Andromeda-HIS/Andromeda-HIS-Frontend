@@ -8,8 +8,9 @@
 
 .search__input {
     font-family: inherit;
+    font-weight: 600;
     font-size: inherit;
-    color: inherit;
+    color: var(--color-grey-dark-1);
     background-color: var(--color-grey-light-2);
     border: none;
     padding: .7rem 2rem;
@@ -26,8 +27,8 @@
 }
 
 .search__input::-webkit-input-placeholder {
-    font-weight: 100;
-    color: var(--color-grey-light-4);
+    font-weight: 400;
+    color: var(--color-grey-dark-2);
 }
 
 .search__input:focus + .search__button {

@@ -1,16 +1,17 @@
 import { faListNumeric, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import classes from "./SearchBar.module.css";
 
-const SearchBar = () => {
+const SearchBar = (props) => {
     const [queryType, setQueryType] = useState("By Id");
 
     const queryTypeChangeHandler = (type) => {
         setQueryType(type);
     };
+
+    const serachInputRef = useRef();
 
     const radioButtons = (
         <div className={classes["radio-btn__container"]}>
@@ -62,11 +63,13 @@ const SearchBar = () => {
 
     return (
         <>
-            <form action="#" className={classes["search"]}>
+            <form className={classes["search"]}>
                 <input
                     type="text"
                     className={classes["search__input"]}
-                    placeholder="Search hotels"
+                    placeholder="Search treated patients"
+                    ref={serachInputRef}
+                    onChange={() => props.onChangeQuery(serachInputRef.current.value)}
                 />
                 <button className={classes["search__button"]}>
                     <FontAwesomeIcon

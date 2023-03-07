@@ -18,3 +18,26 @@
     background-color: brown;
     color: beige;
 }
+
+.go-back__btn {
+    margin-top: 5rem;
+    width: 60%;
+    font-size: 2.4rem;
+    padding: .5rem 2rem;
+    color: var(--color-white);
+    border-radius: .5rem;
+    background-color: var(--color-primary-light);
+    border: 2px solid var(--color-primary-light);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.go-back__btn:active {
+    transform: scale(.92);
+}
+
+.go-back__btn:hover {
+    border: 2px solid var(--color-primary-dark);
+    background-color: var(--color-primary-dark);
+}

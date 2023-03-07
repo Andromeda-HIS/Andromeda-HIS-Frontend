@@ -28,7 +28,8 @@ const router = createBrowserRouter([
             { path: "/profile/searchpatient", element: <ProfilePage tab="Search Patient"/>},
             { path: "/profile/treat", element: <ProfilePage tab="Treat"/>},
             { path: "/profile/scheduletest", element: <ProfilePage tab="Schedule Test" />},
-            { path: "/profile/scheduletreatment", element: <ProfilePage tab="Schedule Treatment" />}            
+            { path: "/profile/scheduletreatment", element: <ProfilePage tab="Schedule Treatment" />},
+            { path: "/profile/savetestresult", element: <ProfilePage tab="Save Test Result" />}
         ],
     },
 ]);
