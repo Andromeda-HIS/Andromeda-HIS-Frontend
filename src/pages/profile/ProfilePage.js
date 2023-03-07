@@ -65,7 +65,7 @@ const ProfilePage = (props) => {
         <ErrorPage
             status={403}
             title="UH OH! You're sus!"
-            message="You are either not logged in or have tried to access a functionality using browser bar.
+            message="You are either not logged in or have tried to access a functionality using the browser bar.
         For security measures, you have been logged out. Please login again."
             link="/login"
             linkTitle="Login"

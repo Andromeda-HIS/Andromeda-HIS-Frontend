@@ -85,34 +85,40 @@ const TreatPatient = () => {
         <>
             {!selectedAppointment && (
                 <div className={classes["search-patient"]}>
-                    {appointments &&
-                        appointments.map((appointment) => (
-                            <div
-                                key={appointment.appointmentId}
-                                className={classes["patient-preview"]}
-                                onClick={() =>
-                                    appointmentResolveHandler(
-                                        appointment.patientId
-                                    )
-                                }
-                            >
-                                {appointment.appointmentId} &nbsp;{" "}
-                                {appointment.symptoms}
-                            </div>
-                        ))}
+                    <ul className={classes["patient-preview__list"]}>
+                        {appointments &&
+                            appointments.map((appointment) => (
+                                <li
+                                    key={appointment.appointmentId}
+                                    className={classes["patient-preview"]}
+                                    onClick={() =>
+                                        appointmentResolveHandler(
+                                            appointment.patientId
+                                        )
+                                    }
+                                >
+                                    <p className={classes["id"]}>
+                                        {appointment.patientId}
+                                    </p>
+                                    <p className={classes["name"]}>
+                                        {appointment.symptoms}
+                                    </p>
+                                </li>
+                            ))}
+                    </ul>
                 </div>
             )}
             {selectedAppointment && (
-                <div>
+                <div className={classes["resolve-appointment"]}>
                     <Table
                         title="Patient Details"
                         data={[
                             {
-                                field: "Id",
+                                field: "Appointment ID",
                                 value: selectedAppointment.appointmentId,
                             },
                             {
-                                field: "patientId",
+                                field: "Patient ID",
                                 value: selectedAppointment.patientId,
                             },
                             {
@@ -128,6 +134,7 @@ const TreatPatient = () => {
                                 value: selectedAppointment.symptoms,
                             },
                         ]}
+                        className={classes["patient-info"]}
                     />
                     <TreatPatientForm
                         patientId={selectedAppointment.patientId}

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import UserContext from "../../store/user-context";
 import { useContext, useCallback } from "react";
 
+import GenericTable from "../generictable/GenericTable";
+
 const Account = () => {
     const [accountInfo, setAccountInfo] = useState(null);
 

@@ -8,3 +8,7 @@
 .account__table {
     width: 60%;
 }
+
+.account__table .table__list-item {
+    padding: 1rem 2rem !important;
+}

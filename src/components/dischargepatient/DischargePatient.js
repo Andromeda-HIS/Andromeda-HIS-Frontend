@@ -5,12 +5,31 @@ import { useCallback } from "react";
 
 import { useState, useEffect } from "react";
 
+import ResponseModal from "../responsemodal/ResponseModal";
+
 const DischargePatient = () => {
     const [admittances, setAdmittances] = useState(null);
     const [selectedAdmittance, setSelectedAdmittance] = useState(null);
+    const [modalOn, setModalOn] = useState(false);
+    const [modalTitle, setModalTitle] = useState(null);
+    const [modalMessage, setModalMessage] = useState(null);
+
+    const hideModalHandler = () => {
+        setModalOn(false);
+    };
+
+    const showModalHandler = (title, message) => {
+        setModalTitle(title);
+        setModalMessage(message);
+        setModalOn(true);
+    };
 
     const admittanceChangeHandler = (index) => {
-        setSelectedAdmittance(admittances[index]);
+        if (selectedAdmittance && selectedAdmittance.index === index) {
+            setSelectedAdmittance(null);
+        } else {
+            setSelectedAdmittance({ ...admittances[index], index });
+        }
     };
 
     const admittanceDetailsResponseHandler = (data) => {
@@ -50,12 +69,21 @@ const DischargePatient = () => {
     let admittanceErrorMessage = null;
     if (!selectedAdmittance) {
         admittanceErrorMessage = "Admittance not selected.";
+    } 
+
+    if (!admittances || (admittances && admittances.length === 0)) {
+        admittanceErrorMessage = "No admittances were found.";
     }
 
     const dischargeResponseHandler = (data) => {
-        console.log(data);
-        setAdmittances(null);
-        // showModalHandler("Discharge Patient", "Successfully discharged the patient.");
+        if (data.success) {
+            console.log(data);
+            setAdmittances(null);
+            showModalHandler(
+                "Discharge Patient",
+                "Successfully discharged the patient."
+            );
+        }
     };
 
     const dischargeHandler = async (discharge) => {
@@ -76,12 +104,19 @@ const DischargePatient = () => {
 
     const submitHandler = () => {
         dischargeHandler({ patientId: +selectedAdmittance.patientId });
-    }
+    };
 
     return (
         <>
             <div className={classes["rooms"]}>
                 {!admittances && <p>Loading</p>}
+                {modalOn && (
+                    <ResponseModal
+                        onConfirm={hideModalHandler}
+                        title={modalTitle}
+                        message={modalMessage}
+                    />
+                )}
                 {admittances &&
                     admittances.map((admittance, index) => (
                         <div
@@ -94,21 +129,40 @@ const DischargePatient = () => {
                                     : ""
                             }`}
                         >
-                            <h2 className={classes["name"]}>
+                            <h1 className={classes["name"]}>
                                 {admittance.roomId}
-                            </h2>
-                            <h2 className={classes["name"]}>
-                                Patient ID:{admittance.patientId}
-                            </h2>
-                            <h2 className={classes["name"]}>
-                                Name:{admittance.patientName}
-                            </h2>
+                            </h1>
+                            <div>
+                                <h3 className={classes["card__info"]}>
+                                    <h3 className={classes["card__info-title"]}>
+                                        ID
+                                    </h3>
+                                    <p className={classes["card__info-value"]}>
+                                        {admittance.patientId}
+                                    </p>
+                                </h3>
+                                <h3 className={classes["card__info"]}>
+                                    <h3 className={classes["card__info-title"]}>
+                                        Name
+                                    </h3>
+                                    <p className={classes["card__info-value"]}>
+                                        {admittance.patientName}
+                                    </p>
+                                </h3>
+                            </div>
                         </div>
                     ))}
-
-                <div className={classes["error-message"]}>
-                    {admittanceErrorMessage ? admittanceErrorMessage : " "}
-                </div>
+            </div>
+            <div className={classes["admittance-error"]}>
+                {admittanceErrorMessage ? (
+                    <p className={classes["admittance-error__message"]}>
+                        {admittanceErrorMessage}
+                    </p>
+                ) : (
+                    <p className={classes["admittance-error__message"]}>
+                        &nbsp;
+                    </p>
+                )}
             </div>
             <div className={`${classes["form__btn-group"]}`}>
                 <button

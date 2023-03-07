@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useInput from "../../hooks/use-input";
 
 import classes from "./MakeAppointmentForm.module.css";
@@ -53,6 +53,8 @@ const MakeAppointmentForm = (props) => {
 
     const [patientIdExists, setPatientIdExists] = useState(true);
     const [appointmentExists, setAppointmentExists] = useState(false);
+    const [doctorAvailable, setDoctorAvailable] = useState(true);
+    const [dateViolatesPhysics, setDateViolatesPhysics] = useState(true);
 
     const normalClasses = classes["input__field"];
     const errorClasses = classes["input__error"];
@@ -66,6 +68,12 @@ const MakeAppointmentForm = (props) => {
         ? errorClasses
         : normalClasses;
 
+    const dateInputClasses = dateInputHasError || dateViolatesPhysics ? errorClasses : normalClasses;
+
+    useEffect(() => {
+        setDoctorAvailable(true);
+    }, [props.selected]);
+
     let patientIdErrorMessage = null;
     if (patientIdInputHasError) {
         patientIdErrorMessage = "Patient Id cannot be empty,";
@@ -74,6 +82,10 @@ const MakeAppointmentForm = (props) => {
     } else if (appointmentExists) {
         patientIdErrorMessage =
             "Patient already made an appointment for the given day.";
+    } else if (!props.selected) {
+        patientIdErrorMessage = "Please select a doctor.";
+    } else if (!doctorAvailable) {
+        patientIdErrorMessage = "Doctor not available";
     }
 
     let symptomsErrorMessage = null;
@@ -83,11 +95,13 @@ const MakeAppointmentForm = (props) => {
 
     let dateErrorMessage = null;
     if (dateInputHasError) {
-        dateErrorMessage = "Please enter a date.";
+        dateErrorMessage = "Date cannot be empty.";
+    } else if (dateViolatesPhysics) {
+        dateErrorMessage = "Please enter a valid date.";
     }
 
     let formIsValid = false;
-    if (patientIdIsValid && !appointmentExists && symptomsIsValid && dateIsValid) {
+    if (patientIdIsValid && props.selected && doctorAvailable && !appointmentExists && symptomsIsValid && dateIsValid) {
         formIsValid = true;
     }
 
@@ -110,7 +124,7 @@ const MakeAppointmentForm = (props) => {
             if (data.errorMessage === "Patient does not exist") {
                 setPatientIdExists(false);
             } else if (data.errorMessage === "Doctor is unavailable") {
-                props.onChangeDoctorAvailablility(false);
+                setDoctorAvailable(false);
             } else if (data.errorMessage === "Appointment already exists") {
                 setAppointmentExists(true);
             }
@@ -120,7 +134,8 @@ const MakeAppointmentForm = (props) => {
             resetSymptoms();
             resetDate();
             setAppointmentExists(false);
-            props.onChangeDoctorAvailablility(true);
+            setDoctorAvailable(true);
+            setDateViolatesPhysics(false);
             showModalHandler("Make Appointment", "Successfully made the appointment.");
         }
     };
@@ -145,7 +160,24 @@ const MakeAppointmentForm = (props) => {
         patientIdChangeHandler(event);
         setPatientIdExists(true);
         setAppointmentExists(false);
+        setDoctorAvailable(true);
     };
+
+    const masterDateChangeHandler = (event) => {
+        dateChangeHandler(event);
+        setAppointmentExists(false);
+        if (event.target.value) {
+            const currentDate  = new Date();
+            const selectedDate = new Date(event.target.value);
+            const diffDays = selectedDate.getDate() - currentDate.getDate();
+            console.log(diffDays);
+            if (diffDays < 0 || diffDays > 6) {
+                setDateViolatesPhysics(true);
+            } else {
+                setDateViolatesPhysics(false);
+            }
+        } 
+    }
 
     return (
         <FormCard>
@@ -213,12 +245,12 @@ const MakeAppointmentForm = (props) => {
                             Date
                         </label>
                         <input
-                            className={symptomsInputClasses}
+                            className={dateInputClasses}
                             id="date"
                             type="date"
                             value={date}
                             name="date"
-                            onChange={dateChangeHandler}
+                            onChange={masterDateChangeHandler}
                             onBlur={dateInputBlurHandler}
                         />
                         {dateErrorMessage ? (

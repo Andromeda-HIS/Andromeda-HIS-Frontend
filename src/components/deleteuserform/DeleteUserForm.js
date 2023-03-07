@@ -173,7 +173,7 @@ const DeleteUserForm = () => {
                 autoComplete="off"
                 onSubmit={submitHandler}
             >
-                <h1 className={classes["form__title"]}>Remove</h1>
+                <h1 className={classes["form__title"]}>Delete User</h1>
                 {radioButtons}
                 <div className={`${classes["form__inputs"]}`}>
                     <div className={classes["input"]}>

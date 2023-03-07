@@ -44,7 +44,8 @@
     --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
 
     /* TABLE */
-    --field-font-size: 2.4rem;
-    --value-font-size: 2.4rem;
-    --cell-padding: 4rem 1.8rem;
+    --field-font-size: 2rem;
+    --value-font-size: 2rem;
+    --cell-padding: 3rem 2rem;
+    --title-padding: 4rem 2.4rem;
 }

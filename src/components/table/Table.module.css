@@ -6,7 +6,7 @@
     width: 100%;
     height: 3rem;
     background-color: var(--color-primary-light);
-    padding: var(--cell-padding);
+    padding: var(--title-padding);
 
     border: .3rem solid var(--color-primary-light);
     border-top-left-radius: 2rem;
@@ -29,7 +29,7 @@
     border-radius: 20px;
     /* background-color: rgba(255, 255, 255, 0.8); */
     background-image: linear-gradient(to right, rgba(255, 255, 255, .8) 0%, rgba(255, 255, 255, .8) 18%, rgba(255, 255, 255, .7) 18%);
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25); */
 
     backdrop-filter: blur(2px);
     transition: all .2s;
@@ -55,12 +55,11 @@
 .field {
     font-size: var(--field-font-size);
     font-weight: 700;
-    width: 10%;
-    text-align: center; 
+    width: 20%;
 }
 
 .value {
     font-size: var(--value-font-size);
-    font-weight: 600;
+    font-weight: 400;
     width: 80%;
 }

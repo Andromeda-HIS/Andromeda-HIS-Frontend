@@ -89,7 +89,7 @@ const NavBar = () => {
                             &nbsp; Home
                         </NavLink>
                     </li>
-                    <li className={classes["primary-navigation__list-item"]}>
+                    {/* <li className={classes["primary-navigation__list-item"]}>
                         <NavLink
                             to="/aurora"
                             className={({ isActive }) =>
@@ -104,7 +104,7 @@ const NavBar = () => {
                             />
                             &nbsp; Aurora
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li className={classes["primary-navigation__list-item"]}>
                         <NavLink
                             to="/contact"

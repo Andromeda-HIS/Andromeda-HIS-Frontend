@@ -3,7 +3,8 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 5rem;
-    background-image: url(https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+    background-blend-mode: color;
+    background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark)), url(https://images.unsplash.com/photo-1512678080530-7760d81faba6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -14,7 +15,9 @@
 
 .available {
     display: flex;
-    flex: 1 0 21%;
+    max-width: 24%;
+    flex: 1 0 24%;
+    gap: 2rem;
     flex-direction: column;
     justify-content: space-between;
 
@@ -44,11 +47,14 @@
 
 .name {
     color: var(--color-black);
+    align-self: center;
+    font-size: 5rem;
 }
 
 .department {
     font-size: 2.4rem;
     color: #222;
+    font-weight: 500;
 }
 
 .error-message {
@@ -61,10 +67,11 @@
 
 .form__btn-group {
     padding: 0;
+    text-align: center;
 }
 
 .form__btn {
-    width: 100%;
+    width: 50%;
     font-size: 2.4rem;
     padding: .5rem 2rem;
     color: var(--color-white);
@@ -83,4 +90,35 @@
 .form__btn:hover {
     border: 2px solid var(--color-black);
     background-color: var(--color-black);
+}
+
+.admittance-error {
+    width: 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.admittance-error__message {
+    font-size: 2rem;
+    color: red;
+}
+
+.card__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--color-grey-dark-1);
+    font-weight: 400;
+}
+
+.card__info-title {
+    width: 50%;
+    font-weight: 600;
+    font-size: 2.5rem;
+}
+
+.card__info-value {
+    width: 50%;
+    font-weight: 500;
+    font-size: 2.5rem;
 }

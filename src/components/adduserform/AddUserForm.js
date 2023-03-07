@@ -206,7 +206,7 @@ const AddUserForm = () => {
         if (!data.success) {
             setUsernameExists(true);
         } else {
-            showModalHandler("Add User", "Successfully added the user to the database.");
+            showModalHandler("Add User", `Successfully added the user to the database.`);
         }
     };
 
@@ -475,7 +475,7 @@ const AddUserForm = () => {
                 autoComplete="off"
                 onSubmit={submitHandler}
             >
-                <h1 className={classes["form__title"]}>Register</h1>
+                <h1 className={classes["form__title"]}>Add User</h1>
                 {radioButtons}
                 <div className={`${classes["form__inputs"]}`}>
                     {basicInputs}

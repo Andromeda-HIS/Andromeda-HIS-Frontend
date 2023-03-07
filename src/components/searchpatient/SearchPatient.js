@@ -4,6 +4,7 @@ import SearchBar from "../searchbar/SearchBar";
 import UserContext from "../../store/user-context";
 
 import Table from "../table/Table";
+import GenericTable from "../generictable/GenericTable";
 
 import classes from "./SearchPatient.module.css";
 
@@ -65,7 +66,7 @@ const SearchPatient = () => {
             admitted: data.admitted ? "Yes" : "No",
             room: data.room,
             treatments: data.treatments,
-            tests: data.tests
+            tests: data.tests.map(test => [test[0], test[1], test[2] ? test[2] : "Pending", test[3] ? test[3] : "NA"]),
         });
     };
 
@@ -87,6 +88,26 @@ const SearchPatient = () => {
         console.log("In go back!");
         setSelectedPatient(null);
     };
+
+    let testTableContent = null;
+    if (selectedPatient && selectedPatient.tests) {
+        testTableContent = {
+            title: "Tests",
+            fields: ["Test ID", "Test Name", "Test Result", "Report"],
+            rows: selectedPatient.tests,
+        };
+    }
+
+    let treatmentTableContent = null;
+    if (selectedPatient && selectedPatient.treatments) {
+        treatmentTableContent = {
+            title: "Treatments",
+            fields: ["Treatment ID", "Treatment Name"],
+            rows: selectedPatient.treatments,
+        };
+    }
+
+    let test
 
     return (
         <>
@@ -133,44 +154,12 @@ const SearchPatient = () => {
                 </div>
             )}
             {selectedPatient && (
-                // <ul className={classes["patient-details__list"]}>
-                //     <li
-                //         className={classes["patient-details"]}
-                //     >
-                //         <p className={classes["field"]}>Id</p>
-                //         <p className={classes["value"]}>{selectedPatient.id}</p>
-                //     </li>
-                //     <li
-                //         className={classes["patient-details"]}
-                //     >
-                //         <p className={classes["field"]}>Name</p>
-                //         <p className={classes["value"]}>{selectedPatient.name}</p>
-                //     </li>
-                //     <li
-                //         className={classes["patient-details"]}
-                //     >
-                //         <p className={classes["field"]}>Address</p>
-                //         <p className={classes["value"]}>{selectedPatient.address}</p>
-                //     </li>
-                //     <li
-                //         className={classes["patient-details"]}
-                //     >
-                //         <p className={classes["field"]}>Admitted</p>
-                //         <p className={classes["value"]}>{selectedPatient.admitted}</p>
-                //     </li>
-                //     <li
-                //         className={classes["patient-details"]}
-                //     >
-                //         <p className={classes["field"]}>Room</p>
-                //         <p className={classes["value"]}>{selectedPatient.room}</p>
-                //     </li>
-                // </ul>
                 <div className={classes["more__details"]}>
                     <div className={classes["details__table-container"]}>
                         <Table
                             title="Patient Details"
                             data={[
-                                { field: "Id", value: selectedPatient.id },
+                                { field: "ID", value: selectedPatient.id },
                                 { field: "Name", value: selectedPatient.name },
                                 {
                                     field: "Address",
@@ -186,23 +175,59 @@ const SearchPatient = () => {
                         />
                     </div>
 
-                    {selectedPatient.treatments && selectedPatient.treatments.length !== 0 && <div className={classes["treatment__table-container"]}>
-                        <Table
-                            title="Treatments"
-                            data={selectedPatient.treatments.map((treatment, index)  => {return {field: index + 1, value: treatment[1]}})}
-                            className={classes["treatment__table"]}
-                        />
-                    </div>}
+                    {selectedPatient.treatments &&
+                        selectedPatient.treatments.length !== 0 && (
+                            <div
+                                className={
+                                    classes["treatment__table-container"]
+                                }
+                            >
+                                {/* <Table
+                                    title="Treatments"
+                                    data={selectedPatient.treatments.map(
+                                        (treatment, index) => {
+                                            return {
+                                                field: index + 1,
+                                                value: treatment[1],
+                                            };
+                                        }
+                                    )}
+                                    className={classes["treatment__table"]}
+                                /> */}
+                                <GenericTable
+                                    title={treatmentTableContent.title}
+                                    fields={treatmentTableContent.fields}
+                                    rows={treatmentTableContent.rows}
+                                    className={classes["treatment__table"]}
+                                />
+                            </div>
+                        )}
 
-                    {selectedPatient.tests && selectedPatient.tests.length !== 0 && <div className={classes["treatment__table-container"]}>
-                        <Table
+                    {selectedPatient.tests &&
+                        selectedPatient.tests.length !== 0 && (
+                            <div
+                                className={
+                                    classes["treatment__table-container"]
+                                }
+                            >
+                                {/* <Table
                             title="Tests"
                             data={selectedPatient.tests.map((test, index) => {return {field: index + 1, value: test[1]}})}
                             className={classes["treatment__table"]}
-                        />
-                    </div>}
+                        /> */}
+                                <GenericTable
+                                    title={testTableContent.title}
+                                    fields={testTableContent.fields}
+                                    rows={testTableContent.rows}
+                                    className={classes["treatment__table"]}
+                                />
+                            </div>
+                        )}
 
-                    <button className={classes["go-back__btn"]} onClick={goBackHandler}>
+                    <button
+                        className={classes["go-back__btn"]}
+                        onClick={goBackHandler}
+                    >
                         Go Back
                     </button>
                 </div>

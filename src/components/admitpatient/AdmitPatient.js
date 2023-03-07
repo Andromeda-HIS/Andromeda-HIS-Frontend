@@ -2,13 +2,18 @@ import AdmitPatientForm from "../admitpatientform/AdmitPatientForm";
 import classes from "./AdmitPatient.module.css";
 import { useState, useEffect, useCallback } from "react";
 
+
 const AdmitPatient = () => {
     const [rooms, setRooms] = useState(null);
     const [selectedRoom, setSelectedRoom] = useState(null);
     const [recentlyAdmitted, setRecentlyAdmitted] = useState(true);
 
     const roomChangeHandler = (index) => {
-        setSelectedRoom(rooms[index]);
+        if (selectedRoom && selectedRoom.index === index) {
+            setSelectedRoom(null);
+        } else {
+            setSelectedRoom({...rooms[index], index});
+        }
     };
 
     const admitHandler = () => {

@@ -51,7 +51,7 @@
     background-color: var(--color-white);
     border: 3px solid var(--color-primary);
     color: var(--color-primary);
-    border-radius: 1rem;
+    border-radius: 2rem;
     transition: all .2s;
     font-size: 2rem;
 }

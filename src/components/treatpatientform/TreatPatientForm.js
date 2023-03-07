@@ -47,6 +47,7 @@ const TreatPatientForm = (props) => {
     };
 
     const appointmentResolveResponseHandler = (data) => {
+        console.log(data);
         if (data.success) {
             props.onBack();
         }
