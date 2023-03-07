@@ -20,6 +20,7 @@ import ScheduleTest from "../../components/scheduletest/ScheduleTest";
 import ScheduleTreatment from "../../components/scheduletreatment/ScheduleTreatment";
 import Account from "../../components/account/Account";
 import SaveTestResult from "../../components/savetestresult/SaveTestResult";
+import ErrorPage from "../error/ErrorPage";
 
 const ProfilePage = (props) => {
     const userCtx = useContext(UserContext);
@@ -48,10 +49,10 @@ const ProfilePage = (props) => {
     } else if (props.tab === "Schedule Treatment") {
         content = <ScheduleTreatment />;
     } else if (props.tab === "Save Test Result") {
-        content = <SaveTestResult />
+        content = <SaveTestResult />;
     }
 
-    return (
+    const loggedInContent = (
         <div className={`crown ${classes["dashboard"]}`}>
             <Sidebar />
             <div className={`scroller ${classes["dashboard__content"]}`}>
@@ -59,6 +60,19 @@ const ProfilePage = (props) => {
             </div>
         </div>
     );
+
+    const notLoggedInContent = (
+        <ErrorPage
+            status={403}
+            title="UH OH! You're sus!"
+            message="You are either not logged in or have tried to access a functionality using browser bar.
+        For security measures, you have been logged out. Please login again."
+            link="/login"
+            linkTitle="Login"
+        />
+    );
+
+    return <>{userCtx.isLoggedIn ? loggedInContent : notLoggedInContent}</>;
 };
 
 export default ProfilePage;

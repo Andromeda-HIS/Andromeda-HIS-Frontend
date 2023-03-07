@@ -76,7 +76,6 @@ export const UserContextProvider = (props) => {
         setIsLoggedIn(true);
         setUser(user);
         if (user.designation === "Receptionist") {
-            console.log("Rece");
             setReceptionistColors();
         } else if (user.designation === "Clerk") {
             setClerkColors();

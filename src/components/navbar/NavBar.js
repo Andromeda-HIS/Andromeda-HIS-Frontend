@@ -26,7 +26,7 @@ const NavBar = () => {
         <div className={classes["nav-btn__group"]}>
             <Link
                 to="/login"
-                className={`${classes["nav-btn"]} ${classes["login"]}`}
+                className={`${classes["login"]}`}
             >
                 Login
             </Link>

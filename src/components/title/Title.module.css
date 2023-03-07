@@ -12,6 +12,8 @@
     height: 85vh;
     width: 100%;
     position: relative;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
 }
 
 .header__text-box {

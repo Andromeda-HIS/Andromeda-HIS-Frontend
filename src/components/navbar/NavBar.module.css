@@ -12,7 +12,7 @@
 }
 
 .logo {
-    margin-left: 5rem;
+    margin-left: 2.8rem;
     font-size: 2rem;
     color: var(--color-primary);
     display: flex;
@@ -120,15 +120,22 @@
     cursor: pointer;
 }
 
-.login {
+.login, .login:link {
+    width: 10rem;
+    text-align: center;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border: .2rem solid var(--color-primary);
     color: var(--color-primary);
-    background-color: transparent;
-    margin-right: 5rem;
+    border-radius: 2rem;
+    transition: all .2s;
+    font-size: 2rem;
+    margin-right: 4rem;
 }
 
 .login:hover {
-    color: var(--color-white);
     background-color: var(--color-primary);
+    color: var(--color-white);
 }
 
 .poweroff {

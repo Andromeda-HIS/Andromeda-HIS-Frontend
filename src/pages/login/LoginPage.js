@@ -4,7 +4,7 @@ import classes from "./LoginPage.module.css";
 
 const LoginPage = () => {
     return (
-        <div className="crown scroller">
+        <div className={`crown scroller ${classes["login__container"]}`}>
             <div className={classes["login"]}>
                 <div className={classes["book"]}>
                     <LoginForm />

@@ -76,7 +76,7 @@ const LoginForm = () => {
         })
             .catch((error) => console.log(error))
             .then((response) => response.json())
-            .then((data) => loginHandler(data, user));
+            .then((data) => loginHandler(data, {userName: user.userName, designation: user.designation}));
     };
 
     const masterUsernameChangeHandler = (event) => {
