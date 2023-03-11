@@ -15,7 +15,6 @@
     width: 50%;
     z-index: 2100;
     overflow: hidden;
-    background-color: orangered;
     backdrop-filter: blur(3px);
     border-radius: 1rem;
 }

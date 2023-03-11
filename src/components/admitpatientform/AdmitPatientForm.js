@@ -1,13 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useInput from "../../hooks/use-input";
 import FormCard from "../formcard/FormCard";
 import ResponseModal from "../responsemodal/ResponseModal";
-
-
 import classes from "./AdmitPatientForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
-
 
 const AdmitPatientForm = (props) => {
     const [modalOn, setModalOn] = useState(false);
@@ -48,6 +45,11 @@ const AdmitPatientForm = (props) => {
             ? errorClasses
             : normalClasses;
 
+    let formIsValid = true;
+    if (patientIdIsValid || !patientIdExists || !props.selected || (props.selected && !props.selected.available) || alreadyAdmitted) {
+        formIsValid = false;
+    }
+
     let patientIdErrorMessage = null;
     if (patientIdInputHasError) {
         patientIdErrorMessage = "Patient Id cannot be empty,";
@@ -65,7 +67,9 @@ const AdmitPatientForm = (props) => {
     const submitHandler = (event) => {
         event.preventDefault();
 
-        admitHandler({ patient_id: +patientId, room_id: props.selected.id });
+        if (formIsValid) {
+            admitHandler({ patient_id: +patientId, room_id: props.selected.id });
+        }
     };
 
     const admitResponseHandler = (data) => {
@@ -87,7 +91,7 @@ const AdmitPatientForm = (props) => {
         window.scroll(0, 0);
         console.log(admittance);
         const url = `http://localhost:8000/receptionist/admit/`;
-        await fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

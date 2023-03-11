@@ -1,7 +1,6 @@
+import { useState, useEffect, useCallback } from "react";
 import AdmitPatientForm from "../admitpatientform/AdmitPatientForm";
 import classes from "./AdmitPatient.module.css";
-import { useState, useEffect, useCallback } from "react";
-
 
 const AdmitPatient = () => {
     const [rooms, setRooms] = useState(null);
@@ -25,20 +24,18 @@ const AdmitPatient = () => {
         console.log(data);
         const receivedRooms = [];
         for (let receivedRoom of data.data) {
-            // console.log(receivedRoom);
             receivedRooms.push({
                 id: +receivedRoom[0],
                 available: receivedRoom[1],
             });
         }
-        // console.log(receivedRooms);
         setRooms(receivedRooms);
     }, []);
 
     const roomDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/receptionist/rooms`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

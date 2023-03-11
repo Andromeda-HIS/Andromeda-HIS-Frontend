@@ -2,12 +2,15 @@ import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./ContactPage.css";
 
+import saptarshi from "./imgs/saptarshi.jpg";
+import ayush from "./imgs/ayush.jpg";
+
 const ContactPage = () => {
     return (
         <div class="container">
             <div class="card">
                 <img
-                    src="https://lh3.googleusercontent.com/pZwZJ5HIL5iKbA91UGMUIPR0VJWa3K0vOGzDZmY6wU3EJBUdfsby3VEyxU162XxTyOyP3D154tjkr-4Jgcx8lygYUR8eB-jVmld4dsHi1c-mE_A8jKccseAG7bdEwVrcuuk6ciNtSw=s170-no"
+                    src={ayush}
                     alt="Person"
                     class="card__image"
                 />
@@ -79,11 +82,11 @@ const ContactPage = () => {
             </div>
             <div class="card">
                 <img
-                    src="https://lh3.googleusercontent.com/pZwZJ5HIL5iKbA91UGMUIPR0VJWa3K0vOGzDZmY6wU3EJBUdfsby3VEyxU162XxTyOyP3D154tjkr-4Jgcx8lygYUR8eB-jVmld4dsHi1c-mE_A8jKccseAG7bdEwVrcuuk6ciNtSw=s170-no"
+                    src={saptarshi}
                     alt="Person"
                     class="card__image"
                 />
-                <p class="card__name">Saptarshi de Chaudhary</p>
+                <p class="card__name">Saptarshi De Chaudhury</p>
                 {/* <div class="grid-container">
                     <div class="grid-child-posts">mallikritwik2014@gmail.com</div>
                 </div>

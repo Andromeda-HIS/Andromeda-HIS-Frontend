@@ -2,6 +2,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    color: var(--color-grey-dark-1);
+
+    backdrop-filter: blur(2px);
+
+    backdrop-filter: blur(2px);
 }
 
 .field {
@@ -16,26 +27,19 @@
     width: 80%;
 }
 
-.table-heading {
-    height: 3rem;
-    padding: var(--title-padding);
-    width: 100%;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
-    font-weight: 700rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .row {
-    background-color: var(--color-primary-light);
-    background-image: linear-gradient(to right, rgba(255, 255, 255, .7) 0%, rgba(255, 255, 255, .7) 18%, rgba(255, 255, 255, .7) 18%);
+    /* background-color: var(--color-primary-light); */
+    /* background-image: linear-gradient(to right, rgba(255, 255, 255, .7) 0%, rgba(255, 255, 255, .7) 18%, rgba(255, 255, 255, .7) 18%); */
 }
 
 .row {
     display: flex;
     width: 100%;
+}
+
+.row:hover.row:not(:first-child) {
+    cursor: pointer;
+    background-color: var(--color-grey-light-1);
 }
 
 .row:last-child {
@@ -45,16 +49,17 @@
 }
 
 .row:not(:first-child) {
-    border-left: .3rem solid var(--color-primary-light);
-    border-right: .3rem solid var(--color-primary-light);
-    border-bottom: .3rem solid var(--color-primary-light);
+    /* border-left: .3rem solid var(--color-primary-light); */
+    /* border-right: .3rem solid var(--color-primary-light); */
+    /* border-bottom: .3rem solid var(--color-primary-light); */
 }
 
 .row:first-child {
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
     overflow: hidden;
-    border: .3rem solid var(--color-primary-light);
+    /* border: .3rem solid var(--color-primary-light); */
+    border-bottom: .3rem solid var(--color-grey-dark-3);
 }
 
 .col {
@@ -71,7 +76,7 @@
 }
 
 .col:not(:last-child) {
-    border-right: .3rem solid var(--color-primary-light);
+    /* border-right: .3rem solid var(--color-primary-light); */
 }
 
 .img__link {

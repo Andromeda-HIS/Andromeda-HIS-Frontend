@@ -3,6 +3,7 @@ import { useState, useContext, useEffect, useCallback } from "react";
 
 import classes from "./TreatPatient.module.css";
 import TreatPatientForm from "../treatpatientform/TreatPatientForm";
+import LinkTable from "../linktable/LinkTable";
 
 import Table from "../table/Table";
 
@@ -29,7 +30,7 @@ const TreatPatient = () => {
 
     const appointmentDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/doctor/all_appointments?doctor_username=${userCtx.user.userName}`;
+        const url = `http://localhost:8000/doctor/all_appointments/?doctor_username=${userCtx.user.userName}`;
         await fetch(url, {
             method: "GET",
             headers: {
@@ -63,7 +64,7 @@ const TreatPatient = () => {
 
     const appointmentResolveHandler = async (id) => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/doctor/patient?doctor_username=${userCtx.user.userName}&patient_id=${id}`;
+        const url = `http://localhost:8000/doctor/patient/?doctor_username=${userCtx.user.userName}&patient_id=${id}`;
         await fetch(url, {
             method: "GET",
             headers: {
@@ -85,7 +86,12 @@ const TreatPatient = () => {
         <>
             {!selectedAppointment && (
                 <div className={classes["search-patient"]}>
-                    <ul className={classes["patient-preview__list"]}>
+                    {!appointments || appointments && appointments.length === 0 && (
+                            <p className={classes["not-found"]}>
+                                No Appointments Found
+                            </p>
+                        )}
+                    {/* <ul className={classes["patient-preview__list"]}>
                         {appointments &&
                             appointments.map((appointment) => (
                                 <li
@@ -105,7 +111,24 @@ const TreatPatient = () => {
                                     </p>
                                 </li>
                             ))}
-                    </ul>
+                    </ul> */}
+                    {appointments && appointments.length > 0 && <LinkTable
+                        fields={[
+                            "Appointment ID",
+                            "Patient ID",
+                            "Symptoms",
+                            "Date"
+                        ]}
+                        rows={appointments.map((appointment, index) => [
+                            appointment.appointmentId,
+                            appointment.patientId,
+                            appointment.symptoms,
+                            appointment.date.toLocaleString().split(',')[0]
+                        ])}
+                        onSelectLink={appointmentResolveHandler}
+                        ids={appointments.map(appointment => appointment.patientId)}
+                        byId={true}
+                    />}
                 </div>
             )}
             {selectedAppointment && (

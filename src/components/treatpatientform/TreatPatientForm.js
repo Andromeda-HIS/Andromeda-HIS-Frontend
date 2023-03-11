@@ -5,10 +5,25 @@ import { useState, useEffect, useContext } from "react";
 import FormCard from "../formcard/FormCard";
 
 import UserContext from "../../store/user-context";
+import ResponseModal from "../responsemodal/ResponseModal";
 
 const TreatPatientForm = (props) => {
     const isNotEmpty = (value) => value.trim() !== "";
     const userCtx = useContext(UserContext);
+    const [modalOn, setModalOn] = useState(false);
+    const [modalTitle, setModalTitle] = useState(null);
+    const [modalMessage, setModalMessage] = useState(null);
+
+    const hideModalHandler = () => {
+        setModalOn(false);
+        props.onBack();
+    }
+
+    const showModalHandler = (title, message) => {
+        setModalTitle(title);
+        setModalMessage(message);
+        setModalOn(true);
+    }
 
     const {
         value: test,
@@ -49,7 +64,9 @@ const TreatPatientForm = (props) => {
     const appointmentResolveResponseHandler = (data) => {
         console.log(data);
         if (data.success) {
-            props.onBack();
+            const treatmentRecommended = treatment.trim() === "" ? null : `Successfully recommended the treatment ${treatment} to the patient. `;
+            const testRecommended = test.trim() === "" ? null : `${test} test has been suggested for detailed diagnosis.`; 
+            showModalHandler("Appintment Resolution", `${treatmentRecommended && treatmentRecommended}${testRecommended && testRecommended}`);
         }
     };
 
@@ -90,6 +107,7 @@ const TreatPatientForm = (props) => {
                 autoComplete="off"
                 onSubmit={submitHandler}
             >
+                {modalOn && <ResponseModal title={modalTitle} message={modalMessage} onConfirm={hideModalHandler} />}
                 <h1 className={classes["form__title"]}>Prescribe</h1>
                 <div className={`${classes["form__inputs"]}`}>
                     <div className={classes["input"]}>

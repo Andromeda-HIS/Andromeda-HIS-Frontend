@@ -1,12 +1,7 @@
-import classes from "./Account.module.css";
-
-import Table from "../table/Table";
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import UserContext from "../../store/user-context";
-import { useContext, useCallback } from "react";
-
-import GenericTable from "../generictable/GenericTable";
+import Table from "../table/Table";
+import classes from "./Account.module.css";
 
 const Account = () => {
     const [accountInfo, setAccountInfo] = useState(null);
@@ -14,7 +9,6 @@ const Account = () => {
     const userCtx = useContext(UserContext);
 
     const accountInfoResponseHandler = useCallback((data) => {
-        console.log(data);
         let receivedAccountInfo = {
             userName: data.username,
             name: data.name,
@@ -36,7 +30,7 @@ const Account = () => {
         const url = `http://localhost:8000/profile/${userCtx.user.designation.toLowerCase()}/?username=${
             userCtx.user.userName
         }`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

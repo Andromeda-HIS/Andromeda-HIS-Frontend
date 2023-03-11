@@ -8,7 +8,7 @@ const Backdrop = () => {
 
 const ModalOverlay = (props) => {
     return (
-        <div onClick={props.onConfirm} className={classes["modal"]}>
+        <div className={classes["modal"]}>
             <h2 className={classes["modal__title"]}>{props.title}</h2>
             <div className={classes["modal__content"]}>
                 <p className={classes["modal__message"]}>{props.message}</p>

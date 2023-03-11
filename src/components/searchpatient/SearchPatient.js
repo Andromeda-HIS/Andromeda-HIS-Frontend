@@ -5,6 +5,8 @@ import UserContext from "../../store/user-context";
 
 import Table from "../table/Table";
 import GenericTable from "../generictable/GenericTable";
+import ImageModal from "../imagemodal/ImageModal";
+import LinkTable from "../linktable/LinkTable";
 
 import classes from "./SearchPatient.module.css";
 
@@ -13,6 +15,16 @@ const queryMatch = (patientName, queryString) => {
         return patientName.toLowerCase().includes(queryString.toLowerCase());
     }
     return true;
+};
+
+const decodeImage = (encodedImage) => {
+    // console.log(encodedImage);
+    // const uint8Array = new TextEncoder().encode(encodedImage);
+
+    // const blob = new Blob([uint8Array]);
+
+    // const url = URL.createObjectURL(blob);
+    return "data:image/jpeg;base64," + encodedImage;
 };
 
 const SearchPatient = () => {
@@ -45,7 +57,7 @@ const SearchPatient = () => {
 
     const patientDetailsHandler = async () => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/doctor/all_patients?doctor_username=${userCtx.user.userName}`;
+        const url = `http://localhost:8000/doctor/all_patients/?doctor_username=${userCtx.user.userName}`;
         await fetch(url, {
             method: "GET",
             headers: {
@@ -66,13 +78,18 @@ const SearchPatient = () => {
             admitted: data.admitted ? "Yes" : "No",
             room: data.room,
             treatments: data.treatments,
-            tests: data.tests.map(test => [test[0], test[1], test[2] ? test[2] : "Pending", test[3] ? test[3] : "NA"]),
+            tests: data.tests.map((test) => [
+                test[0],
+                test[1],
+                test[2] ? test[2] : "Pending",
+                test[3] ? decodeImage(test[3]) : "NA",
+            ]),
         });
     };
 
     const patientMoreDetailsHandler = async (id) => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/doctor/patient?doctor_username=${userCtx.user.userName}&patient_id=${id}`;
+        const url = `http://localhost:8000/doctor/patient/?doctor_username=${userCtx.user.userName}&patient_id=${id}`;
         await fetch(url, {
             method: "GET",
             headers: {
@@ -107,8 +124,6 @@ const SearchPatient = () => {
         };
     }
 
-    let test
-
     return (
         <>
             {!selectedPatient && (
@@ -122,35 +137,19 @@ const SearchPatient = () => {
                                 No Patients Found
                             </p>
                         )}
-                    <ul className={classes["patient-preview__list"]}>
-                        {patients &&
-                            patients.map(
-                                (patient) =>
-                                    queryMatch(
-                                        patient.name,
-                                        queryString.slice()
-                                    ) && (
-                                        <li
-                                            key={patient.id}
-                                            className={
-                                                classes["patient-preview"]
-                                            }
-                                            onClick={() =>
-                                                patientMoreDetailsHandler(
-                                                    patient.id
-                                                )
-                                            }
-                                        >
-                                            <p className={classes["id"]}>
-                                                {patient.id}
-                                            </p>
-                                            <p className={classes["name"]}>
-                                                {patient.name}
-                                            </p>
-                                        </li>
-                                    )
-                            )}
-                    </ul>
+                    {patients && patients.filter(patient => queryMatch(patient.name, queryString.slice())).length > 0 && <LinkTable
+                        fields={[
+                            "Patient ID",
+                            "Name"
+                        ]}
+                        rows={patients.filter(patient => queryMatch(patient.name, queryString.slice())).map((patient, index) => [
+                            patient.id,
+                            patient.name,
+                        ])}
+                        onSelectLink={patientMoreDetailsHandler}
+                        ids={patients.filter(patient => queryMatch(patient.name, queryString.slice())).map(patient => patient.id)}
+                        byId={true}
+                    />}
                 </div>
             )}
             {selectedPatient && (
@@ -220,6 +219,7 @@ const SearchPatient = () => {
                                     fields={testTableContent.fields}
                                     rows={testTableContent.rows}
                                     className={classes["treatment__table"]}
+                                    imgOverlayFieldNo={3}
                                 />
                             </div>
                         )}

@@ -1,10 +1,8 @@
 import { useState } from "react";
 import useInput from "../../hooks/use-input";
-
 import FormCard from "../formcard/FormCard";
-
-import classes from "./AddUserForm.module.css";
 import ResponseModal from "../responsemodal/ResponseModal";
+import classes from "./AddUserForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
@@ -213,7 +211,7 @@ const AddUserForm = () => {
     const registerUser = async (user) => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/admin/`;
-        await fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
