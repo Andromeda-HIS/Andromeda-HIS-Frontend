@@ -50,7 +50,6 @@
     cursor: pointer;
     padding: .8rem;
     transition: all .2s;
-    /* font-weight: 700; */
     font-size: 1.8rem;
     height: 7.7rem;
     display: flex;
@@ -84,26 +83,6 @@
     gap: 2rem;
     margin-right: 5rem;
 }
-
-.navigation-end-item {
-}
-
-/* .primary-navigation__link {
-    text-decoration: none;
-    color: var(--color-black);
-    fill: var(--color-grey-dark-2);
-    cursor: pointer;
-    padding: .8rem;
-    transition: all .2s;
-    font-size: 1.8rem;
-    height: 7.7rem;
-    display: flex;
-    align-items: center;
-}
-
-.primary-navigation__link:hover {
-    background-color: var(--color-grey-light-2);
-} */
 
 .nav-btn__group {
     display: flex;

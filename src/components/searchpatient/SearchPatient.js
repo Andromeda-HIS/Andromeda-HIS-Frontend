@@ -1,13 +1,9 @@
-import { useState, useEffect, useContext } from "react";
-import SearchBar from "../searchbar/SearchBar";
-
+import { useState, useEffect, useContext, useCallback } from "react";
 import UserContext from "../../store/user-context";
-
+import SearchBar from "../searchbar/SearchBar";
 import Table from "../table/Table";
 import GenericTable from "../generictable/GenericTable";
-import ImageModal from "../imagemodal/ImageModal";
 import LinkTable from "../linktable/LinkTable";
-
 import classes from "./SearchPatient.module.css";
 
 const queryMatch = (patientName, queryString) => {
@@ -18,12 +14,6 @@ const queryMatch = (patientName, queryString) => {
 };
 
 const decodeImage = (encodedImage) => {
-    // console.log(encodedImage);
-    // const uint8Array = new TextEncoder().encode(encodedImage);
-
-    // const blob = new Blob([uint8Array]);
-
-    // const url = URL.createObjectURL(blob);
     return "data:image/jpeg;base64," + encodedImage;
 };
 
@@ -38,12 +28,7 @@ const SearchPatient = () => {
 
     const userCtx = useContext(UserContext);
 
-    useEffect(() => {
-        patientDetailsHandler();
-    }, []);
-
-    const patientDetailsResponseHandler = (data) => {
-        console.log(data);
+    const patientDetailsResponseHandler = useCallback((data) => {
         let receivedPatients = [];
         for (let receivedPatient of data.data) {
             receivedPatients.push({
@@ -53,12 +38,12 @@ const SearchPatient = () => {
         }
 
         setPatients(receivedPatients);
-    };
+    }, []);
 
-    const patientDetailsHandler = async () => {
+    const patientDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/doctor/all_patients/?doctor_username=${userCtx.user.userName}`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -67,7 +52,11 @@ const SearchPatient = () => {
             .then((response) => response.json())
             .then((data) => patientDetailsResponseHandler(data))
             .catch((error) => console.log(error));
-    };
+    }, [patientDetailsResponseHandler, userCtx.user.userName]);
+
+    useEffect(() => {
+        patientDetailsHandler();
+    }, [patientDetailsHandler]);
 
     const patientMoreDetailsResponseHandler = (data, id) => {
         console.log(data);
@@ -90,7 +79,7 @@ const SearchPatient = () => {
     const patientMoreDetailsHandler = async (id) => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/doctor/patient/?doctor_username=${userCtx.user.userName}&patient_id=${id}`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -102,7 +91,6 @@ const SearchPatient = () => {
     };
 
     const goBackHandler = () => {
-        console.log("In go back!");
         setSelectedPatient(null);
     };
 
@@ -137,19 +125,35 @@ const SearchPatient = () => {
                                 No Patients Found
                             </p>
                         )}
-                    {patients && patients.filter(patient => queryMatch(patient.name, queryString.slice())).length > 0 && <LinkTable
-                        fields={[
-                            "Patient ID",
-                            "Name"
-                        ]}
-                        rows={patients.filter(patient => queryMatch(patient.name, queryString.slice())).map((patient, index) => [
-                            patient.id,
-                            patient.name,
-                        ])}
-                        onSelectLink={patientMoreDetailsHandler}
-                        ids={patients.filter(patient => queryMatch(patient.name, queryString.slice())).map(patient => patient.id)}
-                        byId={true}
-                    />}
+                    {patients &&
+                        patients.filter((patient) =>
+                            queryMatch(patient.name, queryString.slice())
+                        ).length > 0 && (
+                            <LinkTable
+                                fields={["Patient ID", "Name"]}
+                                rows={patients
+                                    .filter((patient) =>
+                                        queryMatch(
+                                            patient.name,
+                                            queryString.slice()
+                                        )
+                                    )
+                                    .map((patient, index) => [
+                                        patient.id,
+                                        patient.name,
+                                    ])}
+                                onSelectLink={patientMoreDetailsHandler}
+                                ids={patients
+                                    .filter((patient) =>
+                                        queryMatch(
+                                            patient.name,
+                                            queryString.slice()
+                                        )
+                                    )
+                                    .map((patient) => patient.id)}
+                                byId={true}
+                            />
+                        )}
                 </div>
             )}
             {selectedPatient && (
@@ -181,18 +185,6 @@ const SearchPatient = () => {
                                     classes["treatment__table-container"]
                                 }
                             >
-                                {/* <Table
-                                    title="Treatments"
-                                    data={selectedPatient.treatments.map(
-                                        (treatment, index) => {
-                                            return {
-                                                field: index + 1,
-                                                value: treatment[1],
-                                            };
-                                        }
-                                    )}
-                                    className={classes["treatment__table"]}
-                                /> */}
                                 <GenericTable
                                     title={treatmentTableContent.title}
                                     fields={treatmentTableContent.fields}
@@ -209,11 +201,6 @@ const SearchPatient = () => {
                                     classes["treatment__table-container"]
                                 }
                             >
-                                {/* <Table
-                            title="Tests"
-                            data={selectedPatient.tests.map((test, index) => {return {field: index + 1, value: test[1]}})}
-                            className={classes["treatment__table"]}
-                        /> */}
                                 <GenericTable
                                     title={testTableContent.title}
                                     fields={testTableContent.fields}

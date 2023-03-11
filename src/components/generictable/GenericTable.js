@@ -1,12 +1,10 @@
-import classes from "./GenericTable.module.css";
 import { useState } from "react";
-
 import ImageModal from "../imagemodal/ImageModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
+import classes from "./GenericTable.module.css";
 
 const GenericTable = (props) => {
-    console.log(props);
     const [modalOn, setModalOn] = useState(false);
     const [modalSrc, setModalSrc] = useState(null);
 

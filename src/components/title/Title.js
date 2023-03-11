@@ -1,7 +1,5 @@
 import classes from "./Title.module.css";
 
-import cover from "./imgs/hero.jpg";
-
 const Title = () => {
     return (
         <header className={classes["header"]}>

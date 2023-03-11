@@ -24,7 +24,6 @@ const TreatPatient = () => {
             });
         }
 
-        console.log(receivedAppointments);
         setAppointments(receivedAppointments);
     }, []);
 
@@ -49,7 +48,6 @@ const TreatPatient = () => {
     }, [selectedAppointment, appointmentDetailsHandler]);
 
     const appointmentResolveResponseHandler = (data) => {
-        console.log(data);
         let appointmentDetails = appointments.filter(
             (appointment) => appointment.patientId === data.patientId
         );
@@ -58,7 +56,6 @@ const TreatPatient = () => {
             patientName: data.patient_name,
             patientAddress: data.patient_address,
         };
-        console.log(appointmentDetails);
         setSelectedAppointment(appointmentDetails);
     };
 
@@ -86,7 +83,7 @@ const TreatPatient = () => {
         <>
             {!selectedAppointment && (
                 <div className={classes["search-patient"]}>
-                    {!appointments || appointments && appointments.length === 0 && (
+                    {(!appointments || (appointments && appointments.length === 0)) && (
                             <p className={classes["not-found"]}>
                                 No Appointments Found
                             </p>

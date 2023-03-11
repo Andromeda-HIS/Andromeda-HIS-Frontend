@@ -1,16 +1,10 @@
-import IcomoonReact from "icomoon-react";
-import iconSet from "./imgs/selection.json";
-
-import classes from "./Sidebar.module.css";
-
 import { useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
 import UserContext from "../../store/user-context";
-
 import {
     faUserPlus,
     faUserMinus,
     faUser,
-    faRegistered,
     faHippo,
     faMugSaucer,
     faUserDoctor,
@@ -18,7 +12,7 @@ import {
     faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useLocation } from "react-router-dom";
+import classes from "./Sidebar.module.css";
 
 const Sidebar = () => {
     const userCtx = useContext(UserContext);
@@ -41,12 +35,12 @@ const Sidebar = () => {
         tabs = [
             { title: "Schedule Test", icon: faHippo },
             { title: "Schedule Treatment", icon: faMugSaucer },
-            { title: "Save Test Result", icon: faSearch }
+            { title: "Save Test Result", icon: faSearch },
         ];
     } else if (userCtx.user.designation === "Doctor") {
         tabs = [
             { title: "Search Patient", icon: faSearch },
-            { title: "Treat", icon: faUserDoctor }
+            { title: "Treat", icon: faUserDoctor },
         ];
     }
 
@@ -81,51 +75,10 @@ const Sidebar = () => {
                         </li>
                     );
                 })}
-                {/* <li
-                    className={`${classes["side-nav__item"]} ${classes["side-nav__item--active"]}`}
-                >
-                    <a href="/" className={classes["side-nav__link"]}>
-                        <IcomoonReact
-                            className={classes["side-nav__icon"]}
-                            iconSet={iconSet}
-                            icon="home"
-                        />
-                        <span>Hotel</span>
-                    </a>
-                </li>
-                <li className={classes["side-nav__item"]}>
-                    <a href="/" className={classes["side-nav__link"]}>
-                        <IcomoonReact
-                            className={classes["side-nav__icon"]}
-                            iconSet={iconSet}
-                            icon="aircraft"
-                        />
-                        <span>Flight</span>
-                    </a>
-                </li>
-                <li className={classes["side-nav__item"]}>
-                    <a href="/" className={classes["side-nav__link"]}>
-                        <IcomoonReact
-                            className={classes["side-nav__icon"]}
-                            iconSet={iconSet}
-                            icon="mask"
-                        />
-                        <span>Car Rentals</span>
-                    </a>
-                </li>
-                <li className={classes["side-nav__item"]}>
-                    <a href="/" className={classes["side-nav__link"]}>
-                        <IcomoonReact
-                            className={classes["side-nav__icon"]}
-                            iconSet={iconSet}
-                            icon="500px-with-circle"
-                        />
-                        <span>Tours</span>
-                    </a>
-                </li> */}
             </ul>
             <div className={classes["legal"]}>
-                &copy; 2023 by aerondight.<br /> All rights reserved.
+                &copy; 2023 by aerondight.
+                <br /> All rights reserved.
             </div>
         </nav>
     );

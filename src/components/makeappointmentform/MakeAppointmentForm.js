@@ -107,7 +107,6 @@ const MakeAppointmentForm = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-
         if (formIsValid) {
             appointmentHandler({
                 patient_id: +patientId,
@@ -119,7 +118,6 @@ const MakeAppointmentForm = (props) => {
     };
 
     const appointmentResponseHandler = (data) => {
-        console.log(data);
         if (!data.success) {
             if (data.errorMessage === "Patient does not exist") {
                 setPatientIdExists(false);
@@ -142,9 +140,8 @@ const MakeAppointmentForm = (props) => {
 
     const appointmentHandler = async (appointment) => {
         window.scroll(0, 0);
-        console.log(appointment);
         const url = `http://localhost:8000/receptionist/scheduleappt/`;
-        await fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -170,7 +167,6 @@ const MakeAppointmentForm = (props) => {
             const currentDate  = new Date();
             const selectedDate = new Date(event.target.value);
             const diffDays = selectedDate.getDate() - currentDate.getDate();
-            console.log(diffDays);
             if (diffDays < 0 || diffDays > 6) {
                 setDateViolatesPhysics(true);
             } else {
@@ -265,7 +261,6 @@ const MakeAppointmentForm = (props) => {
                 <div className={`${classes["form__btn-group"]}`}>
                     <button
                         className={`${classes["form__btn"]}`}
-                        // disabled={!formIsValid}
                     >
                         Schedule
                     </button>

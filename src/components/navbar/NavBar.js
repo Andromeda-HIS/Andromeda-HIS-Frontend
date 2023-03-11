@@ -1,23 +1,15 @@
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import UserContext from "../../store/user-context";
 import IcomoonReact from "icomoon-react";
+import iconSet from "./imgs/selection.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faUser,
     faPowerOff,
-    faMessage,
-    faEnvelope,
     faA,
 } from "@fortawesome/free-solid-svg-icons";
-
-import { useContext } from "react";
-import UserContext from "../../store/user-context";
-
-import logo from "./imgs/logo.png";
-
 import classes from "./NavBar.module.css";
-import iconSet from "./imgs/selection.json";
-
-import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
     const userCtx = useContext(UserContext);
@@ -70,7 +62,6 @@ const NavBar = () => {
             <div className={classes["logo"]}>
                 <FontAwesomeIcon icon={faA} className={classes["logo__icon"]} />
             </div>
-            {/* <img src={logo} alt="logo" className={classes["logo"]} /> */}
             <nav className={classes["primary-navigation"]}>
                 <ul className={classes["primary-navigation__list"]}>
                     <li className={classes["primary-navigation__list-item"]}>
@@ -89,22 +80,6 @@ const NavBar = () => {
                             &nbsp; Home
                         </NavLink>
                     </li>
-                    {/* <li className={classes["primary-navigation__list-item"]}>
-                        <NavLink
-                            to="/aurora"
-                            className={({ isActive }) =>
-                                isActive ? classes["active"] : undefined
-                            }
-                            end
-                        >
-                            <IcomoonReact
-                                className={classes["primary-navigation__icon"]}
-                                iconSet={iconSet}
-                                icon="message"
-                            />
-                            &nbsp; Aurora
-                        </NavLink>
-                    </li> */}
                     <li className={classes["primary-navigation__list-item"]}>
                         <NavLink
                             to="/contact"

@@ -21,7 +21,6 @@ const AdmitPatient = () => {
     };
 
     const roomDetailsResponseHandler = useCallback((data) => {
-        console.log(data);
         const receivedRooms = [];
         for (let receivedRoom of data.data) {
             receivedRooms.push({

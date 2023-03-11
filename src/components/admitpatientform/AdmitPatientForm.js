@@ -45,9 +45,9 @@ const AdmitPatientForm = (props) => {
             ? errorClasses
             : normalClasses;
 
-    let formIsValid = true;
-    if (patientIdIsValid || !patientIdExists || !props.selected || (props.selected && !props.selected.available) || alreadyAdmitted) {
-        formIsValid = false;
+    let formIsValid = false;
+    if (patientIdIsValid && patientIdExists && props.selected && props.selected.available && !alreadyAdmitted) {
+        formIsValid = true;
     }
 
     let patientIdErrorMessage = null;
@@ -66,14 +66,13 @@ const AdmitPatientForm = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-
+        
         if (formIsValid) {
             admitHandler({ patient_id: +patientId, room_id: props.selected.id });
         }
     };
 
     const admitResponseHandler = (data) => {
-        console.log(data);
         if (!data.success) {
             if (data.errorMessage === "No such patient found") {
                 setPatientIdExists(false);
@@ -89,7 +88,6 @@ const AdmitPatientForm = (props) => {
 
     const admitHandler = async (admittance) => {
         window.scroll(0, 0);
-        console.log(admittance);
         const url = `http://localhost:8000/receptionist/admit/`;
         fetch(url, {
             method: "POST",
@@ -147,7 +145,6 @@ const AdmitPatientForm = (props) => {
                 <div className={`${classes["form__btn-group"]}`}>
                     <button
                         className={`${classes["form__btn"]}`}
-                        // disabled={!formIsValid}
                     >
                         Admit
                     </button>

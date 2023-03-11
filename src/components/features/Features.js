@@ -1,7 +1,3 @@
-import classes from "./Features.module.css";
-import "./icon-font-basic.css";
-import "./icon-font-ecommerce.css";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faMedkit,
@@ -9,6 +5,7 @@ import {
     faUserNurse,
     faMoneyBill,
 } from "@fortawesome/free-solid-svg-icons";
+import classes from "./Features.module.css";
 
 const Features = () => {
     return (

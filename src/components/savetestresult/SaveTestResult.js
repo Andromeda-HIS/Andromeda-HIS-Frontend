@@ -1,12 +1,7 @@
-import classes from "./SaveTestResult.module.css";
-
-import useInput from "../../hooks/use-input";
-
 import { useState, useCallback, useEffect } from "react";
-
 import LinkTable from "../linktable/LinkTable";
 import SaveTestResultForm from "./SaveTestResultForm";
-import { useFetcher } from "react-router-dom";
+import classes from "./SaveTestResult.module.css";
 
 const SaveTestResult = () => {
     const [tests, setTests] = useState(null);
@@ -15,12 +10,6 @@ const SaveTestResult = () => {
     const finishHandler = () => {
         setSelectedTest(null);
     }
-
-    useEffect(() => {
-        if (!selectedTest) {
-            testDetailsHandler();
-        }
-    }, [selectedTest]);
 
     const testDetailsResponseHandler = useCallback((data) => {
         const receivedTests = [];
@@ -38,7 +27,7 @@ const SaveTestResult = () => {
     const testDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/clerk/testresults/`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -47,21 +36,19 @@ const SaveTestResult = () => {
             .then((response) => response.json())
             .then((data) => testDetailsResponseHandler(data))
             .catch((error) => console.log(error));
-    }, []);
+    }, [testDetailsResponseHandler]);
+
+    useEffect(() => {
+        if (!selectedTest) {
+            testDetailsHandler();
+        }
+    }, [testDetailsHandler, selectedTest]);
 
     const uploadReportHandler = (id) => {
-        // console.log("HI");
-        // console.log(tests.filter((test) => test.testId === id)[0]);
         setSelectedTest(tests.filter((test) => test.testId === id)[0]);
     };
 
     return (
-        // <form onSubmit={submitHandler}>
-        //     <label htmlFor="img">Select image:</label>
-        //     <input type="text" />
-        //     <input type="file" id="img" name="img" accept="image/*" />
-        //     <button type="submit">Submit</button>
-        // </form>
         <div className={classes["main"]}>
             {tests && selectedTest && (
                 <SaveTestResultForm id={selectedTest.testId} onBack={finishHandler} />

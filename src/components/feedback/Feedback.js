@@ -1,5 +1,4 @@
 import classes from "./Feedback.module.css";
-import photo from "./imgs/nat-8.jpg";
 import ciri from "./imgs/ciri.jpg";
 import geralt from "./imgs/geralt.jpg";
 import videoMP4 from "./imgs/video.mp4";

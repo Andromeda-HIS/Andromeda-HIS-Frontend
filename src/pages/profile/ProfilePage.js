@@ -1,26 +1,26 @@
-import Sidebar from "../../components/sidebar/Sidebar";
-import Title from "../../components/title/Title";
-import Feedback from "../../components/feedback/Feedback";
+import { useContext } from "react";
+import UserContext from "../../store/user-context";
 
+import Sidebar from "../../components/sidebar/Sidebar";
+import ErrorPage from "../error/ErrorPage";
+
+import Account from "../../components/account/Account";
 import AddUserForm from "../../components/adduserform/AddUserForm";
 import DeleteUserForm from "../../components/deleteuserform/DeleteUserForm";
+
 import RegisterPatientForm from "../../components/registerpatientform/RegisterPatientForm";
+import AdmitPatient from "../../components/admitpatient/AdmitPatient";
+import MakeAppointment from "../../components/makeappointment/MakeAppointment";
+import DischargePatient from "../../components/dischargepatient/DischargePatient";
+
+import SearchPatient from "../../components/searchpatient/SearchPatient";
 import TreatPatient from "../../components/treatpatient/TreatPatient";
 
-import classes from "./ProfilePage.module.css";
-
-import UserContext from "../../store/user-context";
-import { useContext } from "react";
-import AdmitPatient from "../../components/admitpatient/AdmitPatient";
-import DischargePatient from "../../components/dischargepatient/DischargePatient";
-import MakeAppointment from "../../components/makeappointment/MakeAppointment";
-import SearchBar from "../../components/searchbar/SearchBar";
-import SearchPatient from "../../components/searchpatient/SearchPatient";
 import ScheduleTest from "../../components/scheduletest/ScheduleTest";
 import ScheduleTreatment from "../../components/scheduletreatment/ScheduleTreatment";
-import Account from "../../components/account/Account";
 import SaveTestResult from "../../components/savetestresult/SaveTestResult";
-import ErrorPage from "../error/ErrorPage";
+
+import classes from "./ProfilePage.module.css";
 
 const ProfilePage = (props) => {
     const userCtx = useContext(UserContext);

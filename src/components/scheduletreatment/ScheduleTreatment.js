@@ -1,16 +1,11 @@
-import classes from "./ScheduleTreatment.module.css";
-
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
+import useInput from "../../hooks/use-input";
 import Table from "../table/Table";
 import LinkTable from "../linktable/LinkTable";
-
-import useInput from "../../hooks/use-input";
-
 import ResponseModal from "../responsemodal/ResponseModal";
-
+import classes from "./ScheduleTreatment.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
-
 
 const ScheduleTreatment = () => {
     const [treatments, setTreatments] = useState(null);
@@ -23,13 +18,14 @@ const ScheduleTreatment = () => {
     const hideModalHandler = () => {
         setModalOn(false);
         setSelectedTreatment(null);
-    }
+    };
 
     const showModalHandler = (title, message) => {
+        resetDate();
         setModalTitle(title);
         setModalMessage(message);
         setModalOn(true);
-    }
+    };
 
     const {
         value: date,
@@ -59,7 +55,6 @@ const ScheduleTreatment = () => {
             });
         }
 
-        console.log(receivedTreatments);
         if (receivedTreatments.length === 0) {
             setTreatments(null);
         } else {
@@ -70,7 +65,7 @@ const ScheduleTreatment = () => {
     const treatmentDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/clerk/treatments/`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -92,7 +87,6 @@ const ScheduleTreatment = () => {
     };
 
     const treatmentMoreDetailsHandler = (index) => {
-        console.log(index);
         setSelectedTreatment(treatments[index]);
     };
 
@@ -107,26 +101,28 @@ const ScheduleTreatment = () => {
     };
 
     const scheduleTreatmentResponseHandler = (data) => {
-        console.log(data);
         if (!data.success) {
         } else {
-            showModalHandler("Schedule Treatment", "Successfully scheduled treatment.");
+            showModalHandler(
+                "Schedule Treatment",
+                "Successfully scheduled treatment."
+            );
         }
     };
 
     const scheduleTreatmentHandler = async (treatmentLog) => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/clerk/savetreatments/`;
-        await fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(treatmentLog),
         })
-            .catch((error) => console.log(error))
             .then((response) => response.json())
-            .then((data) => scheduleTreatmentResponseHandler(data));
+            .then((data) => scheduleTreatmentResponseHandler(data))
+            .catch((error) => console.log(error));
     };
 
     const masterDateChangeHandler = (event) => {
@@ -135,7 +131,6 @@ const ScheduleTreatment = () => {
             const currentDate = new Date();
             const selectedDate = new Date(event.target.value);
             const diffDays = selectedDate.getDate() - currentDate.getDate();
-            console.log(diffDays);
             if (diffDays < 0 || diffDays > 6) {
                 setDateViolatesPhysics(true);
             } else {
@@ -153,7 +148,13 @@ const ScheduleTreatment = () => {
 
     return (
         <div className={classes["schedule-treatment"]}>
-            {modalOn && <ResponseModal onConfirm={hideModalHandler} title={modalTitle} message={modalMessage}/>}
+            {modalOn && (
+                <ResponseModal
+                    onConfirm={hideModalHandler}
+                    title={modalTitle}
+                    message={modalMessage}
+                />
+            )}
             {!treatments && (
                 <div className={classes["table__container"]}>
                     <p className={classes["not-found"]}>
@@ -162,24 +163,6 @@ const ScheduleTreatment = () => {
                 </div>
             )}
             {!selectedTreatment && treatments && (
-                // <ul className={classes["patient-preview__list"]}>
-                //     {treatments.map((treatment, index) => (
-                //         <li
-                //             key={index}
-                //             className={classes["patient-preview"]}
-                //             onClick={() => treatmentMoreDetailsHandler(index)}
-                //         >
-                //             <p className={classes["id"]}>{treatment.id}</p>
-                //             <p className={classes["name"]}>
-                //                 {treatment.patientName}
-                //             </p>
-                //             <p className={classes["treatment-name"]}>
-                //                 {treatment.treatmentName}
-                //             </p>
-                //         </li>
-                //     ))}
-                // </ul>
-
                 <div className={classes["table__container"]}>
                     <LinkTable
                         fields={[

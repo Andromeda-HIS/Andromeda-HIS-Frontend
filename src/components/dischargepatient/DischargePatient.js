@@ -1,10 +1,5 @@
-// import DischargePatientForm from "../dischargepatientform/DischargePatientForm";
+import { useState, useEffect, useCallback } from "react";
 import classes from "./DischargePatient.module.css";
-
-import { useCallback } from "react";
-
-import { useState, useEffect } from "react";
-
 import ResponseModal from "../responsemodal/ResponseModal";
 
 const DischargePatient = () => {
@@ -33,7 +28,6 @@ const DischargePatient = () => {
     };
 
     const admittanceDetailsResponseHandler = (data) => {
-        console.log(data);
         const receivedAdmittances = [];
         for (let receivedAdmittance of data.data) {
             receivedAdmittances.push({
@@ -42,14 +36,13 @@ const DischargePatient = () => {
                 roomId: receivedAdmittance[2],
             });
         }
-        console.log(receivedAdmittances);
         setAdmittances(receivedAdmittances);
     };
 
     const admittanceDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/receptionist/admittances`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -77,7 +70,6 @@ const DischargePatient = () => {
 
     const dischargeResponseHandler = (data) => {
         if (data.success) {
-            console.log(data);
             setAdmittances(null);
             showModalHandler(
                 "Discharge Patient",
@@ -88,9 +80,8 @@ const DischargePatient = () => {
 
     const dischargeHandler = async (discharge) => {
         window.scroll(0, 0);
-        console.log(discharge);
         const url = `http://localhost:8000/receptionist/discharge/`;
-        await fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

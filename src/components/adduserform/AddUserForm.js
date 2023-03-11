@@ -17,6 +17,12 @@ const AddUserForm = () => {
     }
 
     const showModalHandler = (title, message) => {
+        resetUserName();
+        resetPassword();
+        resetConfirmPassword();
+        resetName();
+        resetAddress();
+        resetDepartment();
         setModalTitle(title);
         setModalMessage(message);
         setModalOn(true);
@@ -24,12 +30,6 @@ const AddUserForm = () => {
 
     const designationChangeHandler = (designation) => {
         setDesignation(designation);
-        resetUserName();
-        resetPassword();
-        resetConfirmPassword();
-        resetName();
-        resetAddress();
-        resetDepartment();
         setUsernameExists(false);
     };
 
@@ -239,7 +239,6 @@ const AddUserForm = () => {
                 user = { ...user, department };
             }
 
-            console.log(user);
             registerUser(user);
         }
     };
@@ -483,7 +482,6 @@ const AddUserForm = () => {
                 <div className={`${classes["form__btn-group"]}`}>
                     <button
                         className={`${classes["form__btn"]}`}
-                        // disabled={!formIsValid}
                     >
                         Register
                     </button>

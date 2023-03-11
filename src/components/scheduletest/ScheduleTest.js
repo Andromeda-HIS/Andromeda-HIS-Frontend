@@ -1,13 +1,9 @@
-import classes from "./ScheduleTest.module.css";
-
-import { useState, useEffect, useRef, useCallback } from "react";
-import Table from "../table/Table";
-
+import { useState, useEffect, useCallback } from "react";
 import useInput from "../../hooks/use-input";
-
+import Table from "../table/Table";
 import LinkTable from "../linktable/LinkTable";
-
 import ResponseModal from "../responsemodal/ResponseModal";
+import classes from "./ScheduleTest.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
@@ -25,6 +21,7 @@ const ScheduleTest = () => {
     }
 
     const showModalHandler = (title, message) => {
+        resetDate();
         setModalTitle(title);
         setModalMessage(message);
         setModalOn(true);
@@ -46,7 +43,6 @@ const ScheduleTest = () => {
         dateInputHasError || dateViolatesPhysics ? errorClasses : normalClasses;
 
     const testDetailsResponseHandler = useCallback((data) => {
-        console.log(data);
         let receivedTests = [];
         for (let receivedTest of data.data) {
             receivedTests.push({
@@ -59,7 +55,6 @@ const ScheduleTest = () => {
             });
         }
 
-        console.log(receivedTests);
         if (receivedTests.length === 0) {
             setTests(null);
         } else {
@@ -70,7 +65,7 @@ const ScheduleTest = () => {
     const testDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/clerk/tests/`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -92,7 +87,6 @@ const ScheduleTest = () => {
     };
 
     const testMoreDetailsHandler = (index) => {
-        console.log(index);
         setSelectedTest(tests[index]);
     };
 
@@ -103,13 +97,11 @@ const ScheduleTest = () => {
                 test_id: selectedTest.testId,
             };
 
-            console.log(testLog);
             scheduleTestHandler(testLog);
         }
     };
 
     const scheduleTestResponseHandler = (data) => {
-        console.log(data);
         if (!data.success) {
         } else {
             showModalHandler("Schedule Test", "Successfully scheduled test.");
@@ -126,9 +118,9 @@ const ScheduleTest = () => {
             },
             body: JSON.stringify(testLog),
         })
-            .catch((error) => console.log(error))
             .then((response) => response.json())
-            .then((data) => scheduleTestResponseHandler(data));
+            .then((data) => scheduleTestResponseHandler(data))
+            .catch((error) => console.log(error));
     };
 
     const masterDateChangeHandler = (event) => {
@@ -137,7 +129,6 @@ const ScheduleTest = () => {
             const currentDate = new Date();
             const selectedDate = new Date(event.target.value);
             const diffDays = selectedDate.getDate() - currentDate.getDate();
-            console.log(diffDays);
             if (diffDays < 0 || diffDays > 6) {
                 setDateViolatesPhysics(true);
             } else {
@@ -164,23 +155,6 @@ const ScheduleTest = () => {
                 </div>
             )}
             {!selectedTest && tests && (
-                // <ul className={classes["patient-preview__list"]}>
-                //     {tests.map((test, index) => (
-                //         <li
-                //             key={index}
-                //             className={classes["patient-preview"]}
-                //             onClick={() => testMoreDetailsHandler(index)}
-                //         >
-                //             <p className={classes["id"]}>{test.id}</p>
-                //             <p className={classes["name"]}>
-                //                 {test.patientName}
-                //             </p>
-                //             <p className={classes["test-name"]}>
-                //                 {test.testName}
-                //             </p>
-                //         </li>
-                //     ))}
-                // </ul>
                 <div className={classes["table__container"]}>
                     <LinkTable
                         fields={[

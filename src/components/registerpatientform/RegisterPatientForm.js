@@ -1,9 +1,7 @@
 import { useState } from "react";
 import useInput from "../../hooks/use-input";
-
 import FormCard from "../formcard/FormCard";
 import ResponseModal from "../responsemodal/ResponseModal";
-
 import classes from "./RegisterPatientForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
@@ -74,7 +72,6 @@ const RegisterPatientForm = () => {
     const registerPatientResponseHandler = (data) => {
         resetName();
         resetAddress();
-        console.log(data);
         if (data.success) {
             showModalHandler("Register Patient", "Successfully registered the patient.");
         }
@@ -104,7 +101,6 @@ const RegisterPatientForm = () => {
                 address,
             };
 
-            console.log(patient);
             registerPatient(patient);
         }
     };

@@ -1,106 +1,117 @@
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./ContactPage.css";
-
+import classes from "./ContactPage.module.css";
 import saptarshi from "./imgs/saptarshi.jpg";
 import ayush from "./imgs/ayush.jpg";
+import ritwik from "./imgs/ritwik.jpg";
+import vignan from "./imgs/vignan.jpg";
 
 const ContactPage = () => {
     return (
-        <div class="container">
-            <div class="card">
-                <img
-                    src={ayush}
-                    alt="Person"
-                    class="card__image"
-                />
-                <p class="card__name">Ayush Dwivedi</p>
-                {/* <div class="grid-container">
-                    <div class="grid-child-posts">mallikritwik2014@gmail.com</div>
+        <div className={classes["container"]}>
+            <div className={classes["card"]}>
+                <div className={classes["card__image-container"]}>
+                    <img
+                        src={ayush}
+                        alt="Person"
+                        className={classes["card__image"]}
+                    />
                 </div>
-                <div class="grid-container">
-                    <div class="grid-child-posts">8617290014</div>
-                </div> */}
-                <div class="info__block">
-                    <div class="info">
-                        <FontAwesomeIcon icon={faEnvelope} class="icon" />{" "}
+                <p className={classes["card__name"]}>Ayush Dwivedi</p>
+                <div className={classes["info__block"]}>
+                    <div className={classes["info"]}>
+                        <FontAwesomeIcon
+                            icon={faEnvelope}
+                            className={classes["icon"]}
+                        />{" "}
+                        ayushdwivedi1254@gmail.com
+                    </div>
+                    <div className={classes["info"]}>
+                        <FontAwesomeIcon
+                            icon={faPhone}
+                            className={classes["icon"]}
+                        />{" "}
+                        6391116056
+                    </div>
+                </div>
+            </div>
+            <div className={classes["card"]}>
+                <div className={classes["card__image-container"]}>
+                    <img
+                        src={ritwik}
+                        alt="Person"
+                        className={`${classes["card__image"]} ${classes["ritwik"]}`}
+                    />
+                </div>
+                <p className={classes["card__name"]}>Ritwik Ranjan Mallik</p>
+                <div className={classes["info__block"]}>
+                    <div className={classes["info"]}>
+                        <FontAwesomeIcon
+                            icon={faEnvelope}
+                            className={classes["icon"]}
+                        />{" "}
                         mallikritwik2014@gmail.com
                     </div>
-                    <div class="info">
-                        <FontAwesomeIcon icon={faPhone} class="icon" />{" "}
+                    <div className={classes["info"]}>
+                        <FontAwesomeIcon
+                            icon={faPhone}
+                            className={classes["icon"]}
+                        />{" "}
                         8617290014
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <img
-                    src="https://lh3.googleusercontent.com/pZwZJ5HIL5iKbA91UGMUIPR0VJWa3K0vOGzDZmY6wU3EJBUdfsby3VEyxU162XxTyOyP3D154tjkr-4Jgcx8lygYUR8eB-jVmld4dsHi1c-mE_A8jKccseAG7bdEwVrcuuk6ciNtSw=s170-no"
-                    alt="Person"
-                    class="card__image"
-                />
-                <p class="card__name">Ritwik Ranjan Mallik</p>
-                {/* <div class="grid-container">
-                    <div class="grid-child-posts">mallikritwik2014@gmail.com</div>
+            <div className={classes["card"]}>
+                <div className={classes["card__image-container"]}>
+                    <img
+                        src={vignan}
+                        alt="Person"
+                        className={`${classes["card__image"]} ${classes["vignan"]}`}
+                    />
                 </div>
-                <div class="grid-container">
-                    <div class="grid-child-posts">8617290014</div>
-                </div> */}
-                <div class="info__block">
-                    <div class="info">
-                        <FontAwesomeIcon icon={faEnvelope} class="icon" />{" "}
-                        mallikritwik2014@gmail.com
+                <p className={classes["card__name"]}>
+                    Sake Venkata Vignan Kumar
+                </p>
+                <div className={classes["info__block"]}>
+                    <div className={classes["info"]}>
+                        <FontAwesomeIcon
+                            icon={faEnvelope}
+                            className={classes["icon"]}
+                        />{" "}
+                        venkatavignankumar@gmail.com
                     </div>
-                    <div class="info">
-                        <FontAwesomeIcon icon={faPhone} class="icon" />{" "}
-                        8617290014
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img
-                    src="https://lh3.googleusercontent.com/pZwZJ5HIL5iKbA91UGMUIPR0VJWa3K0vOGzDZmY6wU3EJBUdfsby3VEyxU162XxTyOyP3D154tjkr-4Jgcx8lygYUR8eB-jVmld4dsHi1c-mE_A8jKccseAG7bdEwVrcuuk6ciNtSw=s170-no"
-                    alt="Person"
-                    class="card__image"
-                />
-                <p class="card__name">Sake Venkata Vignan Kumar</p>
-                {/* <div class="grid-container">
-                    <div class="grid-child-posts">mallikritwik2014@gmail.com</div>
-                </div>
-                <div class="grid-container">
-                    <div class="grid-child-posts">8617290014</div>
-                </div> */}
-                <div class="info__block">
-                    <div class="info">
-                        <FontAwesomeIcon icon={faEnvelope} class="icon" />{" "}
-                        mallikritwik2014@gmail.com
-                    </div>
-                    <div class="info">
-                        <FontAwesomeIcon icon={faPhone} class="icon" />{" "}
-                        8617290014
+                    <div className={classes["info"]}>
+                        <FontAwesomeIcon
+                            icon={faPhone}
+                            className={classes["icon"]}
+                        />{" "}
+                        9390171516
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <img
-                    src={saptarshi}
-                    alt="Person"
-                    class="card__image"
-                />
-                <p class="card__name">Saptarshi De Chaudhury</p>
-                {/* <div class="grid-container">
-                    <div class="grid-child-posts">mallikritwik2014@gmail.com</div>
+            <div className={classes["card"]}>
+                <div className={classes["card__image-container"]}>
+                    <img
+                        src={saptarshi}
+                        alt="Person"
+                        className={`${classes["card__image"]} ${classes["saptarshi"]}`}
+                    />
                 </div>
-                <div class="grid-container">
-                    <div class="grid-child-posts">8617290014</div>
-                </div> */}
-                <div class="info__block">
-                    <div class="info">
-                        <FontAwesomeIcon icon={faEnvelope} class="icon" />{" "}
-                        mallikritwik2014@gmail.com
+                <p className={classes["card__name"]}>Saptarshi De Chaudhury</p>
+                <div className={classes["info__block"]}>
+                    <div className={classes["info"]}>
+                        <FontAwesomeIcon
+                            icon={faEnvelope}
+                            className={classes["icon"]}
+                        />{" "}
+                        saptarshi_dechaudhury@outlook.com
                     </div>
-                    <div class="info">
-                        <FontAwesomeIcon icon={faPhone} class="icon" />{" "}
-                        8617290014
+                    <div className={classes["info"]}>
+                        <FontAwesomeIcon
+                            icon={faPhone}
+                            className={classes["icon"]}
+                        />{" "}
+                        9051045291
                     </div>
                 </div>
             </div>

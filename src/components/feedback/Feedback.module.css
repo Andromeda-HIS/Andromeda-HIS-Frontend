@@ -65,6 +65,8 @@
     padding: 6rem;
     padding-left: 9rem;
     transform: skewX(-12deg);
+    position: relative;
+    z-index: 5000;
 }
 
 .story__shape {
@@ -121,7 +123,12 @@
     transform: translate(-50%, -50%);
 }
 
-.story:hover .story__img {
-    transform: translateX(-4rem) scale(1);
+.story:hover .story__img.ciri {
+    transform: translateX(-6rem) scale(1);
+    filter: blur(3px) brightness(80%);
+}
+
+.story:hover .story__img.geralt {
+    transform: translateX(-3.8rem) scale(1);
     filter: blur(3px) brightness(80%);
 }

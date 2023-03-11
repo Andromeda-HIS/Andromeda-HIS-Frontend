@@ -1,12 +1,8 @@
-import classes from "./SaveTestResultForm.module.css";
-
-import useInput from "../../hooks/use-input";
-
 import { useState } from "react";
-
+import useInput from "../../hooks/use-input";
 import FormCard from "../formcard/FormCard";
-
 import ResponseModal from "../responsemodal/ResponseModal";
+import classes from "./SaveTestResultForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
@@ -21,12 +17,13 @@ const SaveTestResultForm = (props) => {
     };
 
     const showModalHandler = (title, message) => {
+        resetTestResult();
+        resetImageFile();
         setModalTitle(title);
         setModalMessage(message);
         setModalOn(true);
     };
 
-    console.log(props.id);
     const {
         value: testResult,
         isValid: testResultIsValid,
@@ -71,7 +68,7 @@ const SaveTestResultForm = (props) => {
         if (data.success) {
             showModalHandler(
                 "Save Test Result",
-                "Successfully save the test result."
+                "Successfully saved the test result."
             );
         }
     };
@@ -82,7 +79,6 @@ const SaveTestResultForm = (props) => {
         if (formIsValid) {
             const fileInput = document.getElementById("resultImage");
             const formData = new FormData();
-            console.log(props.id);
             formData.append("test_result_image", fileInput.files[0]);
             formData.append("test_result", testResult);
             formData.append("test_id", props.id);

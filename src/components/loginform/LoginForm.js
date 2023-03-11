@@ -74,9 +74,9 @@ const LoginForm = () => {
                 "Content-Type": "application/json",
             }
         })
-            .catch((error) => console.log(error))
             .then((response) => response.json())
-            .then((data) => loginHandler(data, {userName: user.userName, designation: user.designation}));
+            .then((data) => loginHandler(data, {userName: user.userName, designation: user.designation}))
+            .catch((error) => console.log(error));
     };
 
     const masterUsernameChangeHandler = (event) => {
@@ -231,7 +231,6 @@ const LoginForm = () => {
             <div className={`${classes["form__btn-group"]}`}>
                 <button
                     className={`${classes["form__btn"]}`}
-                    // disabled={!formIsValid}
                 >
                     Login
                 </button>

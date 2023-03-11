@@ -1,16 +1,10 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useCallback } from "react";
 import MakeAppointmentForm from "../makeappointmentform/MakeAppointmentForm";
-
 import classes from "./MakeAppointment.module.css";
 
 const MakeAppointment = () => {
     const [doctors, setDoctors] = useState(null);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
-
-    useEffect(() => {
-        doctorDetailsHandler();
-    }, []);
 
     const doctorChangeHandler = (index) => {
         if (selectedDoctor && selectedDoctor.index === index) {
@@ -25,7 +19,6 @@ const MakeAppointment = () => {
     };
 
     const doctorDetailsResponseHandler = (data) => {
-        console.log(data);
         const receivedDoctors = [];
         for (let receivedDoctor of data.data) {
             receivedDoctors.push({
@@ -34,14 +27,13 @@ const MakeAppointment = () => {
                 department: receivedDoctor[2],
             });
         }
-        console.log(receivedDoctors);
         setDoctors(receivedDoctors);
     };
 
-    const doctorDetailsHandler = async () => {
+    const doctorDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/receptionist/doctors`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -50,7 +42,11 @@ const MakeAppointment = () => {
             .then((response) => response.json())
             .then((data) => doctorDetailsResponseHandler(data))
             .catch((error) => console.log(error));
-    };
+    }, []);
+
+    useEffect(() => {
+        doctorDetailsHandler();
+    }, [doctorDetailsHandler]);
 
     return (
         <>

@@ -1,14 +1,11 @@
-import classes from "./TreatPatientForm.module.css";
-import useInput from "../../hooks/use-input";
 import { useState, useEffect, useContext } from "react";
-
-import FormCard from "../formcard/FormCard";
-
+import useInput from "../../hooks/use-input";
 import UserContext from "../../store/user-context";
+import FormCard from "../formcard/FormCard";
 import ResponseModal from "../responsemodal/ResponseModal";
+import classes from "./TreatPatientForm.module.css";
 
 const TreatPatientForm = (props) => {
-    const isNotEmpty = (value) => value.trim() !== "";
     const userCtx = useContext(UserContext);
     const [modalOn, setModalOn] = useState(false);
     const [modalTitle, setModalTitle] = useState(null);
@@ -17,18 +14,18 @@ const TreatPatientForm = (props) => {
     const hideModalHandler = () => {
         setModalOn(false);
         props.onBack();
-    }
+    };
 
     const showModalHandler = (title, message) => {
+        resetTest();
+        resetTreatment();
         setModalTitle(title);
         setModalMessage(message);
         setModalOn(true);
-    }
+    };
 
     const {
         value: test,
-        isValid: testIsValid,
-        hasError: testInputHasError,
         valueChangeHandler: testChangeHandler,
         inputBlurHandler: testInputBlurHandler,
         reset: resetTest,
@@ -36,8 +33,6 @@ const TreatPatientForm = (props) => {
 
     const {
         value: treatment,
-        isValid: treatmentIsValid,
-        hasError: treatmentInputHasError,
         valueChangeHandler: treatmentChangeHandler,
         inputBlurHandler: treatmentInputBlurHandler,
         reset: resetTreatment,
@@ -62,42 +57,58 @@ const TreatPatientForm = (props) => {
     };
 
     const appointmentResolveResponseHandler = (data) => {
-        console.log(data);
         if (data.success) {
-            const treatmentRecommended = treatment.trim() === "" ? null : `Successfully recommended the treatment ${treatment} to the patient. `;
-            const testRecommended = test.trim() === "" ? null : `${test} test has been suggested for detailed diagnosis.`; 
-            showModalHandler("Appintment Resolution", `${treatmentRecommended && treatmentRecommended}${testRecommended && testRecommended}`);
+            const treatmentRecommended =
+                treatment.trim() === ""
+                    ? null
+                    : `Successfully recommended the treatment ${treatment} to the patient. `;
+            const testRecommended =
+                test.trim() === ""
+                    ? null
+                    : `${test} test has been suggested for detailed diagnosis.`;
+            showModalHandler(
+                "Appintment Resolution",
+                `${treatmentRecommended && treatmentRecommended}${
+                    testRecommended && testRecommended
+                }`
+            );
         }
     };
 
     const appointmentResolveHandler = async (appointmentResult) => {
         window.scroll(0, 0);
-        console.log(appointmentResult);
         const url = `http://localhost:8000/doctor/appointment/`;
-        await fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(appointmentResult)
+            body: JSON.stringify(appointmentResult),
         })
             .then((response) => response.json())
             .then((data) => appointmentResolveResponseHandler(data))
             .catch((error) => console.log(error));
     };
 
+    let formIsValid = true;
+    if (bothEmpty) {
+        formIsValid = false;
+    }
+
     const submitHandler = (event) => {
         event.preventDefault();
-        
-        const appointmentResult = {
-            patient_id: props.patientId,
-            appointment_id: props.appointmentId,
-            doctor_username: userCtx.user.userName,
-            procedure_name: test.trim() === "" ? null : test.trim(),
-            prescription: treatment.trim() === "" ? null : treatment.trim()
-        };
 
-        appointmentResolveHandler(appointmentResult);
+        if (formIsValid) {
+            const appointmentResult = {
+                patient_id: props.patientId,
+                appointment_id: props.appointmentId,
+                doctor_username: userCtx.user.userName,
+                procedure_name: test.trim() === "" ? null : test.trim(),
+                prescription: treatment.trim() === "" ? null : treatment.trim(),
+            };
+
+            appointmentResolveHandler(appointmentResult);
+        }
     };
 
     return (
@@ -107,7 +118,13 @@ const TreatPatientForm = (props) => {
                 autoComplete="off"
                 onSubmit={submitHandler}
             >
-                {modalOn && <ResponseModal title={modalTitle} message={modalMessage} onConfirm={hideModalHandler} />}
+                {modalOn && (
+                    <ResponseModal
+                        title={modalTitle}
+                        message={modalMessage}
+                        onConfirm={hideModalHandler}
+                    />
+                )}
                 <h1 className={classes["form__title"]}>Prescribe</h1>
                 <div className={`${classes["form__inputs"]}`}>
                     <div className={classes["input"]}>

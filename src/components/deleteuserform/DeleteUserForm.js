@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import useInput from "../../hooks/use-input";
-
-import classes from "./DeleteUserForm.module.css";
+import UserContext from "../../store/user-context";
 import FormCard from "../formcard/FormCard";
-
 import ResponseModal from "../responsemodal/ResponseModal";
-
+import classes from "./DeleteUserForm.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
 const DeleteUserForm = () => {
+
+    const userCtx = useContext(UserContext);
+
     const [designation, setDesignation] = useState("Receptionist");
     const [modalOn, setModalOn] = useState(false);
     const [modalTitle, setModalTitle] = useState(null);
@@ -20,6 +21,7 @@ const DeleteUserForm = () => {
     }
 
     const showModalHandler = (title, message) => {
+        resetUserName();
         setModalTitle(title);
         setModalMessage(message);
         setModalOn(true);
@@ -68,14 +70,14 @@ const DeleteUserForm = () => {
         if (!data.success) {
             setUsernameExists(false);
         } else {
-            showModalHandler("Remove User", "Successfully removed the user from the database.");
+            showModalHandler("Delete User", "Successfully removed the user from the database.");
         }
     };
 
     const removeUser = async (user) => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/admin/?designation=${user.designation}&username=${user.userName}`;
-        await fetch(url, {
+        fetch(url, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -95,8 +97,11 @@ const DeleteUserForm = () => {
                 designation,
             };
 
-            console.log(user);
-            removeUser(user);
+            if (user.userName === userCtx.user.userName) {
+                showModalHandler("Delete User", `You are currently logged in as ${user.userName}. Suicide is not allowed. Be happpy, be free.`);
+            } else {
+                removeUser(user);
+            }
         }
     };
 
@@ -204,7 +209,6 @@ const DeleteUserForm = () => {
                 <div className={`${classes["form__btn-group"]}`}>
                     <button
                         className={`${classes["form__btn"]}`}
-                        // disabled={!formIsValid}
                     >
                         Remove
                     </button>

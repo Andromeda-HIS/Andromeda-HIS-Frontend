@@ -69,7 +69,9 @@
     font-weight: 400;
     letter-spacing: 3.5rem;
 
-    animation: moveInRight .5s ease-in;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
 } 
 
 .heading-primary--sub {
@@ -78,5 +80,5 @@
     font-weight: 700;
     letter-spacing: 1.75rem;
 
-    animation: moveInLeft .5s ease-in;
+    animation: moveInRight 1s ease-out;
 }

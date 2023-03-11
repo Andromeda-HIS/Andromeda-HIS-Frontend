@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom";
-
 import classes from "./ResponseModal.module.css";
 
 const Backdrop = () => {
