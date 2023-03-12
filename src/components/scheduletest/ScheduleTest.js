@@ -111,7 +111,7 @@ const ScheduleTest = () => {
     const scheduleTestHandler = async (testLog) => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/clerk/savetests/`;
-        await fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -183,23 +183,23 @@ const ScheduleTest = () => {
                             title="Test Details"
                             data={[
                                 {
-                                    field: "treatmenId",
+                                    field: "ID",
                                     value: selectedTest.testId,
                                 },
                                 {
-                                    field: "patientId",
+                                    field: "Patient ID",
                                     value: selectedTest.patientId,
                                 },
                                 {
-                                    field: "patientName",
+                                    field: "Patient Name",
                                     value: selectedTest.patientName,
                                 },
                                 {
-                                    field: "doctorName",
+                                    field: "Doctor Name",
                                     value: selectedTest.doctorName,
                                 },
                                 {
-                                    field: "testName",
+                                    field: "Name",
                                     value: selectedTest.testName,
                                 },
                             ]}

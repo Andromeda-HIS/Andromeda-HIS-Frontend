@@ -191,23 +191,23 @@ const ScheduleTreatment = () => {
                             title="Treatment Details"
                             data={[
                                 {
-                                    field: "treatmenId",
+                                    field: "ID",
                                     value: selectedTreatment.treatmentId,
                                 },
                                 {
-                                    field: "patientId",
+                                    field: "Patient ID",
                                     value: selectedTreatment.patientId,
                                 },
                                 {
-                                    field: "patientName",
+                                    field: "Patient Name",
                                     value: selectedTreatment.patientName,
                                 },
                                 {
-                                    field: "doctorName",
+                                    field: "Doctor Name",
                                     value: selectedTreatment.doctorName,
                                 },
                                 {
-                                    field: "treatmentName",
+                                    field: "Name",
                                     value: selectedTreatment.treatmentName,
                                 },
                             ]}

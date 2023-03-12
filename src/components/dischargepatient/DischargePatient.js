@@ -41,7 +41,7 @@ const DischargePatient = () => {
 
     const admittanceDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/receptionist/admittances`;
+        const url = `http://localhost:8000/receptionist/admittances/`;
         fetch(url, {
             method: "GET",
             headers: {

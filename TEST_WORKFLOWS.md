@@ -20,8 +20,8 @@
 18. Register a patient username: dandelion, address: Novigrad
 19. Register a patient username: detlaff, address: Nazair
 20. Discharge all current patients.
-21. Admit patientId: 5, Room: 1
-22. Admit patientId: 6, Room: 3
+21. Admit patientId: 1, Room: 1
+22. Admit patientId: 2, Room: 3
 23. Make Appointment patientId: 5 with geralt, Stomachache, Sometime in future
 24. Make Appointmnet patientId: 6 with geralt, Headache, Sometime in future
 25. Logout

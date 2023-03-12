@@ -32,7 +32,7 @@ const MakeAppointment = () => {
 
     const doctorDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/receptionist/doctors`;
+        const url = `http://localhost:8000/receptionist/doctors/`;
         fetch(url, {
             method: "GET",
             headers: {

@@ -33,7 +33,7 @@ const AdmitPatient = () => {
 
     const roomDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
-        const url = `http://localhost:8000/receptionist/rooms`;
+        const url = `http://localhost:8000/receptionist/rooms/`;
         fetch(url, {
             method: "GET",
             headers: {

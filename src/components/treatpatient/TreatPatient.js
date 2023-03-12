@@ -30,7 +30,7 @@ const TreatPatient = () => {
     const appointmentDetailsHandler = useCallback(async () => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/doctor/all_appointments/?doctor_username=${userCtx.user.userName}`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const TreatPatient = () => {
     const appointmentResolveHandler = async (id) => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/doctor/patient/?doctor_username=${userCtx.user.userName}&patient_id=${id}`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

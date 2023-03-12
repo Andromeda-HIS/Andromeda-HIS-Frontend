@@ -80,7 +80,7 @@ const RegisterPatientForm = () => {
     const registerPatient = async (patient) => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/receptionist/register/`;
-        await fetch(url, {
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

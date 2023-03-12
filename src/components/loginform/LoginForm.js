@@ -68,7 +68,7 @@ const LoginForm = () => {
     const loginUser = async (user) => {
         window.scroll(0, 0);
         const url = `http://localhost:8000/login/?userName=${user.userName}&password=${user.password}&designation=${user.designation}`;
-        await fetch(url, {
+        fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
